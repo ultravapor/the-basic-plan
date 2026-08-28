@@ -69,7 +69,9 @@ img { max-width: 100%; height: auto; }
   color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent);
   padding: 6px 12px; border-radius: 999px; margin-bottom: 18px;
 }
-.hero p.lead { font-size: 1.15rem; color: var(--muted); max-width: 620px; }
+.hero .hook { font-size: clamp(1.15rem, 3.2vw, 1.55rem); font-weight: 700; color: var(--text); line-height: 1.45; margin: 4px 0 14px; }
+.hero p.lead { font-size: 1.15rem; color: var(--muted); max-width: 620px; line-height: 1.75; }
+.hero h1 { margin-bottom: .4em; }
 .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
 .btn {
   display: inline-block; padding: 13px 22px; border-radius: var(--radius);
