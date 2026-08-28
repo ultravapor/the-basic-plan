@@ -1,54 +1,118 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../consts';
+
+const orgId = new URL('/#org', Astro.site).href;
+// 창업자 Person 스키마 (E-E-A-T · LLMO 엔티티)
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.founder,
+  jobTitle: '대표',
+  description: '원장 출신 마케터. 병·의원 전문 AEO/GEO 마케팅을 직접 총괄한다.',
+  worksFor: { '@id': orgId },
+};
 ---
 
 <BaseLayout
   title="소개"
-  description="더베이직플랜은 병원 원장님을 위한 네이버 블로그 AEO/GEO 대행사입니다. 운영 원칙과 방법론을 공개합니다."
+  description="더베이직플랜은 원장 출신 대표 강병문이 직접 총괄하는 병·의원 전문 AEO/GEO 마케팅입니다. 운을 바라지 않고, 원장님의 진료 철학에서 출발합니다."
   path="/about/"
+  jsonLd={[personJsonLd]}
 >
-  <section class="hero" style="padding-bottom:20px">
+  <section class="hero" style="padding-bottom:16px">
     <span class="eyebrow">소개</span>
-    <h1>{SITE.nameKo} <span style="color:var(--muted);font-size:1rem">The Basic Plan</span></h1>
+    <h1>원장님의 마음을 가장 잘 아는<br />병·의원 전문 마케팅</h1>
     <p class="lead">{SITE.tagline}</p>
   </section>
 
-  <section class="prose">
-    <h2>무엇을 하는 곳인가</h2>
-    <p>
-      더베이직플랜은 병원·의원 원장님을 위한 <strong>네이버 블로그 AEO/GEO 대행사</strong>입니다.
-      단순히 글을 많이 발행하는 것이 아니라, 검색엔진과 AI가 원장님 병원을 특정 질문의
-      <strong>답이자 1차 소스로 인용</strong>하도록 콘텐츠를 설계·발행·측정합니다.
-    </p>
+  <!-- 창업자 -->
+  <section aria-labelledby="founder">
+    <h2 id="founder" class="section-title">왜 ‘원장 출신’이 마케팅을 하는가</h2>
+    <div class="founder" style="margin-bottom:22px">
+      <div class="avatar" aria-hidden="true">강</div>
+      <div>
+        <p style="margin:0"><strong>{SITE.founder}</strong> · {SITE.nameKo} 대표</p>
+        <p class="who">원장 출신 마케터 · 병·의원 전문 AEO/GEO</p>
+      </div>
+    </div>
+    <div class="prose">
+      <p>
+        병원 운영은 진료가 전부가 아닙니다. 인사·노무·세무·소모품·CS까지, 매일 최선을 다해도
+        인정받기 어려운 외로운 길입니다. 저는 그 길을 <strong>같이 걸어봤기에</strong> 원장님의
+        막막함을 압니다.
+      </p>
+      <p>
+        그래서 저는 <strong>행운을 바라면서 일하지 않습니다.</strong> 행운은 본질적으로 불운과
+        같습니다 — 결과를 내가 통제할 수 없기 때문입니다. 운에 기대는 대신, 철저한 계획과
+        데이터로 움직입니다.
+      </p>
+      <p>
+        믿음은 하나입니다. <strong>실력 있는 원장님은 그 실력에 걸맞은 보상을 받아야 합니다.</strong>
+        환자에게 진짜 도움이 되는 병원이 마케팅 때문에 묻히는 일이 없도록, 그 실력이 검색과 AI에
+        먼저 드러나게 만드는 것이 제 일입니다.
+      </p>
+    </div>
+  </section>
 
-    <h2>운영 원칙 (정공법만)</h2>
+  <!-- 방법 -->
+  <section aria-labelledby="how" class="prose">
+    <h2 id="how">우리는 이렇게 일합니다</h2>
+    <p>
+      대부분의 마케팅 회사는 “우리가 올린 포스팅 조회수 XXX회!”를 자랑합니다. 하지만 정작
+      <strong>“조회수는 많은데 왜 예약 전화는 안 오나요?”</strong>라는 질문엔 답하지 못합니다.
+      원장님이 궁금한 건 ‘조회수’가 아니라 ‘결과’입니다.
+    </p>
+    <ol>
+      <li><strong>대행 전, 원장님과 1시간 인터뷰</strong> — 병원 철학·환자층·운영 방식까지. 모든 전략은 진료 철학을 듣는 데서 시작합니다.</li>
+      <li><strong>원장님 관점의 키워드 분석</strong> — 단순 검색량이 아니라 “우리 병원에 맞는 환자가 찾는 키워드”. 검색량 높은 키워드가 때론 독이 됩니다.</li>
+      <li><strong>마케팅 누수 지점 진단</strong> — 블로그·플레이스·유튜브 중 어디서 전환이 새는지 정확히 짚습니다.</li>
+      <li><strong>향후 3개월 맞춤 전략</strong> — 우선순위와 예상 효과까지. 감이 아니라 데이터 기반의 방향을 드립니다.</li>
+    </ol>
+    <blockquote>
+      좋은 대행사는 원장님을 ‘고객’이 아니라 ‘파트너’로 봅니다. 원장님의 성공이 곧 저희의 성공입니다.
+    </blockquote>
+  </section>
+
+  <!-- 브랜딩 계단 -->
+  <section aria-labelledby="branding" class="prose">
+    <h2 id="branding">병원 마케팅은 ‘브랜딩’이고, 브랜딩은 계단입니다</h2>
+    <p>
+      환자는 감기약 사듯 충동적으로 병원을 고르지 않습니다. 병원 선택은 신중한 결정이고, 그래서
+      진짜 병원 마케팅은 신뢰를 쌓는 <strong>브랜딩</strong>입니다. 볼보가 하루아침에 ‘안전한 차’가,
+      스타벅스가 일주일 만에 ‘제3의 공간’이 된 게 아니듯, 브랜딩은 계단을 오르는 일입니다.
+    </p>
+    <ol>
+      <li>병원만의 차별점 발견</li>
+      <li>일관된 메시지 전달</li>
+      <li>환자의 신뢰 획득</li>
+      <li>자연스러운 입소문</li>
+    </ol>
+    <p>이 과정을 건너뛰고 ‘즉시 효과’를 약속한다면, 그것은 속임수이거나 우연입니다.</p>
+  </section>
+
+  <!-- 운영 원칙 -->
+  <section aria-labelledby="principles" class="prose">
+    <h2 id="principles">우리가 지키는 약속 (정공법만)</h2>
     <ul>
       <li><strong>백링크 구매·품앗이·스팸을 하지 않습니다.</strong> 단기 순위가 아니라 병원 도메인 전체를 거는 도박이기 때문입니다.</li>
-      <li><strong>화면이 사실 아닌 것을 말하게 하지 않습니다.</strong> 과장 메타·거짓 구조화 데이터는 AI 인용 신뢰를 죽입니다.</li>
-      <li><strong>크롤러의 눈으로 검증합니다.</strong> "코드에 넣었다"가 아니라 "JS 없이 받은 HTML에 있다"가 기준입니다.</li>
-      <li><strong>측정 없이 완료를 주장하지 않습니다.</strong> 노출·클릭·AI 인용을 기준선부터 재측정까지 추적합니다.</li>
+      <li><strong>‘즉시 효과·상위노출 보장’을 약속하지 않습니다.</strong> 브랜딩은 시간이 필요합니다. 보장 대신 과정과 측정을 약속합니다.</li>
+      <li><strong>크롤러의 눈으로 검증합니다.</strong> “코드에 넣었다”가 아니라 “JS 없이 받은 HTML에 있다”가 기준입니다.</li>
+      <li><strong>측정 없이 완료를 주장하지 않습니다.</strong> 조회수 자랑이 아니라 노출·클릭·문의를 기준선부터 추적해 보고합니다.</li>
     </ul>
-
-    <h2>5개 최적화 레인</h2>
-    <table>
-      <thead><tr><th>레인</th><th>목표</th></tr></thead>
-      <tbody>
-        <tr><td>SEO</td><td>JS 없이도 크롤러가 100% 읽는 기술 기반</td></tr>
-        <tr><td>AEO</td><td>구글·네이버 AI 답변 박스가 인용</td></tr>
-        <tr><td>GEO</td><td>ChatGPT·Perplexity가 1차 소스로 추천</td></tr>
-        <tr><td>LLMO</td><td>모델 지식 자체에 병원 브랜드를 각인</td></tr>
-        <tr><td>NEO(네이버)</td><td>네이버 검색·AI 브리핑 인용 (투트랙)</td></tr>
-      </tbody>
-    </table>
-
-    <h2>이 사이트 자체가 데모입니다</h2>
     <p>
-      이 페이지를 포함해 더베이직플랜 사이트는 위 방법론을 그대로 적용해 만들었습니다.
-      정적 HTML로 서빙되고, 구조화 데이터·llms.txt·크롤러 정책이 모두 심어져 있습니다.
-      대행을 맡기기 전에, 우리가 우리 사이트에 어떻게 적용했는지 먼저 확인하실 수 있습니다.
+      성공하는 병원 마케팅은 ‘무엇을 하느냐’보다 <strong>‘무엇을 피하느냐’</strong>에서 시작됩니다.
     </p>
+  </section>
 
-    <p style="margin-top:28px"><a class="btn primary" href="/#contact">무료 진단 문의</a></p>
+  <!-- 데모 -->
+  <section aria-labelledby="demo" class="prose">
+    <h2 id="demo">이 사이트 자체가 방법론의 증거입니다</h2>
+    <p>
+      이 페이지를 포함한 더베이직플랜 사이트는 저희가 병원에 적용하는 방법론(SEO·AEO·GEO·LLMO·네이버)을
+      그대로 적용해 만들었습니다. 정적 HTML로 서빙되고, 구조화 데이터·llms.txt·크롤러 정책이 모두
+      심어져 있습니다. 맡기기 전에, 저희가 저희 사이트에 어떻게 적용했는지 먼저 확인하실 수 있습니다.
+    </p>
+    <p style="margin-top:28px"><a class="btn primary" href="/#contact">무료 마케팅 진단 신청</a></p>
   </section>
 </BaseLayout>
