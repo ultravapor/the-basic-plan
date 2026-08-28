@@ -3,14 +3,11 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../consts';
 
-// 최신 글 3개 (draft 제외, 최신순)
 const posts = (await getCollection('posts', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
-
 const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 
-// 타겟(대행사에 데인 병원 관계자)이 실제로 할 질문 — 블로그 근거 기반, 날조 없음.
 const faq = [
   {
     q: '이전 대행사도 다 "잘한다"고 했는데, 여긴 뭐가 다른가요?',
@@ -41,20 +38,15 @@ const faq = [
     a: '아니요. 저희 인사이트 칼럼을 몇 개 먼저 읽어보시고, 방향이 맞는다 싶을 때 무료 진단을 신청하셔도 됩니다. 핏이 맞는 파트너를 찾는 것이 서로에게 좋습니다.',
   },
 ];
-
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 };
 ---
 
 <BaseLayout title={SITE.nameKo} jsonLd={[faqJsonLd]}>
-  <!-- HERO -->
+  <!-- ① 주인공 + 후킹 : 손님(원장)의 아픔에서 시작 -->
   <section class="hero">
     <span class="eyebrow">병원·의원 전문 · 원장 출신 마케터가 직접</span>
     <p class="hook">매달 마케팅비는 꼬박꼬박 나가는데,<br />신환은 왜 늘지 않을까요?</p>
@@ -71,7 +63,7 @@ const faqJsonLd = {
     </div>
   </section>
 
-  <!-- 문제 공감 -->
+  <!-- ② 문제 : 외적 + 내적(속마음) -->
   <section aria-labelledby="problem">
     <h2 id="problem" class="section-title">이런 상황, 낯익지 않으신가요?</h2>
     <div class="problem">
@@ -81,109 +73,108 @@ const faqJsonLd = {
         <li>대행사는 잘한다는데, 우리 병원 매출은 그대로</li>
         <li>조회수는 자랑하는데 “왜 예약이 안 오냐”엔 답을 못 함</li>
       </ul>
-      <p class="verdict">
-        3개 이상 해당된다면 — 매달 마케팅비가 ‘구멍 난 배’처럼 새고 있을 확률이 높습니다.
-        더 큰 문제는, 대부분의 병원이 그 구멍이 <em>어디인지조차</em> 모른다는 것입니다.
-      </p>
     </div>
+    <div class="voices">
+      <p>“이번 대행사는 다를 거야… 했는데 또 실망”</p>
+      <p>“월 비용만 나가고 변한 건 없네”</p>
+      <p>“담당자가 또 바뀌었다고?”</p>
+    </div>
+    <p class="verdict-line">
+      가장 아픈 건 돈이 아닙니다. <strong>기대했다가 또 실망하는, 그 마음의 상처</strong>입니다.
+    </p>
   </section>
 
-  <!-- 왜 (창업자·미션) -->
-  <section aria-labelledby="why">
-    <h2 id="why" class="section-title">왜 ‘원장 출신’이 마케팅을 하냐고요?</h2>
-    <div class="founder">
+  <!-- ③ 가이드 : 공감 먼저 → 권위는 증거로 (손님이 주인공, 우리는 조연) -->
+  <section aria-labelledby="guide">
+    <h2 id="guide" class="section-title">저도, 그 자리에 있었습니다</h2>
+    <div class="founder" style="margin-bottom:18px">
       <div class="avatar" aria-hidden="true">강</div>
       <div>
-        <p style="margin:0">
-          같은 길을 걸어봤기에 원장님의 막막함을 압니다. 병원 운영은 진료에 인사·노무·세무·CS까지…
-          그 외로움과 답답함을 알기에, 저는 <strong>행운을 바라며 일하지 않습니다.</strong>
-          운이 아니라 <strong>철저한 계획</strong>으로 합니다.
-          실력 있는 원장님은 그 실력에 걸맞은 보상을 받아야 한다고 믿습니다.
-        </p>
-        <p class="who">— {SITE.founder}, {SITE.nameKo} 대표 (원장 출신 마케터)</p>
+        <p style="margin:0"><strong>{SITE.founder}</strong> · {SITE.nameKo} 대표 · 원장 출신 마케터</p>
+        <p class="who">수백 곳의 병·의원을 분석하며 ‘성공하는 마케팅의 공통 공식’을 찾았습니다.</p>
       </div>
     </div>
+    <p style="color:var(--muted);max-width:640px">
+      대행사 선택의 실패가 단순히 돈의 문제가 아니라는 걸 압니다. 원장 출신이기에, 매일 최선을
+      다해도 인정받기 어려운 그 외로움도 압니다. 그래서 저는 <strong>행운을 바라며 일하지
+      않습니다</strong> — 운이 아니라 철저한 계획으로 원장님의 실력을 드러냅니다.
+    </p>
   </section>
 
-  <!-- 어떻게 (방법) -->
+  <!-- ④ 계획 : 위험을 없애는 명확한 여정 -->
   <section aria-labelledby="how">
-    <h2 id="how" class="section-title">그래서, 저희는 다르게 접근합니다</h2>
+    <h2 id="how" class="section-title">그래서, 이렇게 진행됩니다</h2>
     <div class="steps">
-      <div class="step">
-        <div>
-          <h3>대행 전, 원장님과 1시간 인터뷰</h3>
-          <p>병원 철학·환자층·운영 방식까지. 모든 전략은 원장님의 ‘진료 철학’을 듣는 데서 시작합니다.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div>
-          <h3>원장님 관점의 키워드 분석</h3>
-          <p>단순 검색량이 아니라 “우리 병원에 맞는 환자가 찾는 키워드”. 검색량 높은 키워드가 때론 독이 됩니다.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div>
-          <h3>마케팅 누수 지점 진단</h3>
-          <p>블로그·플레이스·유튜브 중 어디서 전환이 새는지 정확히 짚습니다. “아, 여기서 새고 있었구나!”</p>
-        </div>
-      </div>
-      <div class="step">
-        <div>
-          <h3>향후 3개월 맞춤 전략</h3>
-          <p>병원에 맞는 우선순위와 예상 효과까지. 감이 아니라 데이터 기반의 방향을 드립니다.</p>
-        </div>
-      </div>
+      <div class="step"><div>
+        <h3>대행 전, 원장님과 1시간 인터뷰</h3>
+        <p>병원 철학·환자층·운영 방식까지. 모든 전략은 원장님의 ‘진료 철학’을 듣는 데서 시작합니다.</p>
+      </div></div>
+      <div class="step"><div>
+        <h3>원장님 관점의 키워드 분석</h3>
+        <p>단순 검색량이 아니라 “우리 병원에 맞는 환자가 찾는 키워드”. 검색량 높은 키워드가 때론 독이 됩니다.</p>
+      </div></div>
+      <div class="step"><div>
+        <h3>마케팅 누수 지점 진단</h3>
+        <p>블로그·플레이스·유튜브 중 어디서 전환이 새는지 정확히 짚습니다. “아, 여기서 새고 있었구나!”</p>
+      </div></div>
+      <div class="step"><div>
+        <h3>향후 3개월 맞춤 전략</h3>
+        <p>병원에 맞는 우선순위와 예상 효과까지. 감이 아니라 데이터 기반의 방향을 드립니다.</p>
+      </div></div>
     </div>
   </section>
 
-  <!-- 차별점 (피해야 할 신호) -->
+  <!-- 신뢰 보강 : 피해야 할 신호 (가이드가 믿을 만한 이유) -->
   <section aria-labelledby="diff">
-    <h2 id="diff" class="section-title">이런 대행사는 피하세요 — 그리고 우리는 이렇게 다릅니다</h2>
+    <h2 id="diff" class="section-title">이런 대행사는 피하세요 — 우리는 이렇게 다릅니다</h2>
     <table class="compare">
-      <thead>
-        <tr><th>피해야 할 위험 신호</th><th>더베이직플랜</th></tr>
-      </thead>
+      <thead><tr><th>피해야 할 위험 신호</th><th>더베이직플랜</th></tr></thead>
       <tbody>
-        <tr>
-          <td>“원장님은 진료만 하세요, 다 알아서 할게요”</td>
-          <td>원장님의 진료 철학부터 듣고 함께 만듭니다 (파트너)</td>
-        </tr>
-        <tr>
-          <td>“즉시 효과·상위노출 보장합니다”</td>
-          <td>브랜딩은 시간이 필요합니다. 운이 아닌 계획으로 접근합니다</td>
-        </tr>
-        <tr>
-          <td>“업계 최저가”만 앞세움</td>
-          <td>잘못된 마케팅은 안 하느니만 못합니다. 품질을 지킵니다</td>
-        </tr>
+        <tr><td>“원장님은 진료만 하세요, 다 알아서 할게요”</td><td>원장님의 진료 철학부터 듣고 함께 만듭니다 (파트너)</td></tr>
+        <tr><td>“즉시 효과·상위노출 보장합니다”</td><td>브랜딩은 시간이 필요합니다. 운이 아닌 계획으로</td></tr>
+        <tr><td>“업계 최저가”만 앞세움</td><td>잘못된 마케팅은 안 하느니만 못합니다. 품질을 지킵니다</td></tr>
       </tbody>
     </table>
   </section>
 
-  <!-- 서비스 -->
-  <section aria-labelledby="svc">
-    <h2 id="svc" class="section-title">무엇을 대행하나요</h2>
-    <div class="grid grid--2">
-      <div class="card">
-        <h3>원고 구조 재설계 (AEO)</h3>
-        <p>질문 하나당 페이지 하나 원칙으로, 첫 문단 직답 + 근거 표 + FAQ까지. AI가 문단째로 인용합니다.</p>
+  <!-- ⑤ 행동촉구 (중간) -->
+  <section>
+    <div class="cta-band">
+      <div>
+        <strong>먼저, 우리 병원의 ‘구멍’이 어디인지부터 확인하세요.</strong>
+        <span>무료 진단으로 새는 지점을 짚어드립니다.</span>
       </div>
-      <div class="card">
-        <h3>네이버 투트랙 운영 (NEO)</h3>
-        <p>네이버 블로그(inside)로 신뢰를 쌓고, 자기 도메인(outside)에 팩트 페이지를 세웁니다.</p>
-      </div>
-      <div class="card">
-        <h3>생성 AI 인용 (GEO)</h3>
-        <p>llms.txt·크롤러 정책·1차 소스 설계로 ChatGPT·Perplexity가 병원을 추천 목록에 올리게 합니다.</p>
-      </div>
-      <div class="card">
-        <h3>측정 리포트</h3>
-        <p>조회수 자랑이 아니라 노출·클릭·문의 3지표를 기준선부터 추적해 “숫자가 움직였다”로 보고합니다.</p>
-      </div>
+      <a class="btn primary" href="#contact">무료 마케팅 진단 신청</a>
     </div>
   </section>
 
-  <!-- 최신 인사이트 -->
+  <!-- ⑥ 실패 회피 : 이대로 두면 (과장 없이) -->
+  <section aria-labelledby="stakes">
+    <h2 id="stakes" class="section-title">지금 이대로 두면</h2>
+    <div class="answer">
+      <span class="k">방치의 비용</span>
+      마케팅 구멍을 모른 채 지나가는 동안, 비용은 매달 그대로 새어나가고 경쟁 병원은 그만큼
+      앞서갑니다. 내년 이맘때도 똑같은 고민을 반복하지 않으려면, 새는 지점부터 막아야 합니다.
+    </div>
+  </section>
+
+  <!-- ⑦ 성공 : 달라지는 것 (Before → After) -->
+  <section aria-labelledby="success">
+    <h2 id="success" class="section-title">무엇이 달라지나</h2>
+    <table class="compare">
+      <thead><tr><th>지금 (Before)</th><th>함께한 뒤 (After)</th></tr></thead>
+      <tbody>
+        <tr><td>마케팅 보고서를 봐도 답답했다</td><td>데이터 기반의 명확한 방향을 갖는다</td></tr>
+        <tr><td>감에 의존하는 결정이 불안했다</td><td>우리 병원만의 이기는 전략에 확신이 생긴다</td></tr>
+        <tr><td>블로그가 그저 숙제처럼 느껴졌다</td><td>환자가 먼저 알아봐 주는 소중한 자산이 된다</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--muted);font-size:.9rem;margin-top:10px">
+      ※ 실제 대행 중인 원장님들의 후기는 준비되는 대로 이곳에 담습니다.
+    </p>
+  </section>
+
+  <!-- 인사이트 : 신뢰 축적 (칼럼 읽고 → 문의) -->
   <section aria-labelledby="latest">
     <h2 id="latest" class="section-title">최신 인사이트</h2>
     <p style="color:var(--muted);margin-top:-6px">
@@ -209,43 +200,28 @@ const faqJsonLd = {
   <section class="faq" aria-labelledby="faq">
     <h2 id="faq" class="section-title">자주 묻는 질문</h2>
     {faq.map((f) => (
-      <details>
-        <summary>{f.q}</summary>
-        <p>{f.a}</p>
-      </details>
+      <details><summary>{f.q}</summary><p>{f.a}</p></details>
     ))}
   </section>
 
-  <!-- CONTACT -->
+  <!-- 최종 행동촉구 -->
   <section id="contact" aria-labelledby="contact-h">
     <h2 id="contact-h" class="section-title">무료 마케팅 진단 신청</h2>
     <p style="color:var(--muted)">
       사전 설문에 답해주시면, 원장님 병원의 ‘마케팅 누수 지점’을 진단해 회신드립니다.
-      지금 상태를 방치하면 매달 새어나가는 비용은 계속됩니다.
     </p>
     {SITE.naverFormUrl ? (
       <div class="form-card">
         <p style="margin-top:0">네이버 폼(사전 설문지)으로 간편하게 신청하실 수 있습니다.</p>
-        <a class="btn primary" href={SITE.naverFormUrl} target="_blank" rel="noopener noreferrer">
-          무료 진단 신청하기 →
-        </a>
+        <a class="btn primary" href={SITE.naverFormUrl} target="_blank" rel="noopener noreferrer">무료 진단 신청하기 →</a>
         <p class="form-note">버튼을 누르면 네이버 사전 설문지가 새 창으로 열립니다.</p>
       </div>
     ) : (
       <div class="form-card">
         <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-          <div class="field">
-            <label for="name">성함 / 병원명</label>
-            <input id="name" name="name" type="text" required autocomplete="name" />
-          </div>
-          <div class="field">
-            <label for="reply">회신받을 연락처</label>
-            <input id="reply" name="reply_to" type="text" required />
-          </div>
-          <div class="field">
-            <label for="msg">가장 큰 고민 한 가지</label>
-            <textarea id="msg" name="message" required></textarea>
-          </div>
+          <div class="field"><label for="name">성함 / 병원명</label><input id="name" name="name" type="text" required autocomplete="name" /></div>
+          <div class="field"><label for="reply">회신받을 연락처</label><input id="reply" name="reply_to" type="text" required /></div>
+          <div class="field"><label for="msg">가장 큰 고민 한 가지</label><textarea id="msg" name="message" required></textarea></div>
           <button class="btn primary" type="submit">진단 요청 보내기</button>
           <p class="form-note">제출 내용은 {SITE.email} 으로 전송됩니다.</p>
         </form>
