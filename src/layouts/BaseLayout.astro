@@ -1,0 +1,98 @@
+---
+import { SITE, NAV } from '../consts';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** 페이지별 canonical/og:url 계산용. 미지정 시 현재 경로 사용 */
+  path?: string;
+  ogType?: 'website' | 'article';
+  /** 페이지 고유 JSON-LD (Article, FAQPage 등). 배열로 여러 개 가능 */
+  jsonLd?: Record<string, any>[];
+}
+
+const {
+  title,
+  description = SITE.description,
+  path = Astro.url.pathname,
+  ogType = 'website',
+  jsonLd = [],
+} = Astro.props;
+
+const canonical = new URL(path, Astro.site).href;
+const fullTitle =
+  title === SITE.nameKo ? `${SITE.nameKo} — ${SITE.service}` : `${title} | ${SITE.nameKo}`;
+
+// 전역 Organization 엔티티: 사이트 어디서나 같은 @id 로 참조 (엔티티 분열 방지)
+const orgId = new URL('/#org', Astro.site).href;
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': orgId,
+  name: SITE.nameKo,
+  alternateName: SITE.nameEn,
+  url: Astro.site?.href,
+  description: SITE.description,
+  email: SITE.email,
+  slogan: SITE.tagline,
+  knowsAbout: ['네이버 블로그 최적화', 'AEO 답변엔진 최적화', 'GEO 생성엔진 최적화', '병원 마케팅', '검색 노출'],
+  ...(SITE.sameAs.length ? { sameAs: SITE.sameAs } : {}),
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    email: SITE.email,
+    areaServed: 'KR',
+    availableLanguage: ['ko'],
+  },
+};
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.nameKo} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- 전역 Organization 엔티티 -->
+    <script type="application/ld+json" set:html={JSON.stringify(organization)} />
+    <!-- 페이지 고유 구조화 데이터 -->
+    {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">{SITE.nameKo}<span>{SITE.nameEn}</span></a>
+        <nav class="nav" aria-label="주요 메뉴">
+          {NAV.map((n) => <a href={n.href}>{n.label}</a>)}
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div>© {new Date().getFullYear()} {SITE.nameKo} · {SITE.service}</div>
+        <div><a href={`mailto:${SITE.email}`}>{SITE.email}</a></div>
+      </div>
+    </footer>
+  </body>
+</html>

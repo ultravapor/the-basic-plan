@@ -1,0 +1,163 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+
+// 최신 글 3개 (draft 제외, 최신순)
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// 홈 FAQ — 사람들이 실제로 치는 질문. 가시 텍스트와 JSON-LD를 100% 동일하게 유지.
+const faq = [
+  {
+    q: '네이버 블로그에 글을 쓰는데 왜 상위노출이 안 되나요?',
+    a: '발행량이 아니라 구조 문제인 경우가 대부분입니다. 검색엔진과 네이버 AI가 "이 글이 어떤 질문의 답인지" 인식하도록 제목·첫 문단·소제목이 질문에 정렬돼 있어야 합니다. 더베이직플랜은 질문 하나당 페이지 하나 원칙으로 원고를 재설계합니다.',
+  },
+  {
+    q: 'AEO와 GEO가 정확히 무엇인가요?',
+    a: 'AEO(답변엔진 최적화)는 구글·네이버 검색 상단의 AI 답변 박스가 병원을 인용하게 만드는 작업이고, GEO(생성엔진 최적화)는 ChatGPT·Perplexity 같은 생성 AI가 병원을 1차 소스로 추천하게 만드는 작업입니다. 둘 다 "추출·인용되기 좋은 문장 구조"가 핵심입니다.',
+  },
+  {
+    q: '지금 대행사를 쓰고 있는데 성과가 없습니다. 무엇이 다른가요?',
+    a: '더베이직플랜은 "글 몇 개 발행" 보고가 아니라 노출·클릭·AI 인용 3개 지표를 기준선부터 재측정까지 추적합니다. 백링크 구매·품앗이 같은 정책 위반 없이 정공법만 씁니다.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+// 문의폼 엔드포인트 — 배포 전에 실제 값으로 교체하세요 (아래 요약에 방법 있음)
+const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+---
+
+<BaseLayout title={SITE.nameKo} jsonLd={[faqJsonLd]}>
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">병원 · 의원 원장님 전용 · {SITE.service}</span>
+    <h1>{SITE.tagline}</h1>
+    <p class="lead">
+      네이버에 글은 쌓이는데 문의로 이어지지 않는다면, 문제는 발행량이 아니라 구조입니다.
+      더베이직플랜은 검색엔진과 AI(네이버 AI 브리핑·ChatGPT·Perplexity)가 원장님 병원을
+      <strong>1차 소스로 인용</strong>하도록 콘텐츠를 다시 설계합니다.
+    </p>
+    <div class="cta-row">
+      <a class="btn primary" href="#contact">무료 진단 문의</a>
+      <a class="btn ghost" href="/posts/">인사이트 먼저 보기</a>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section aria-labelledby="svc">
+    <h2 id="svc" class="section-title">무엇을 대행하나요</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>원고 구조 재설계 (AEO)</h3>
+        <p>질문 하나당 페이지 하나 원칙으로, 첫 문단 직답 + 근거 표 + FAQ 구조화 데이터까지. AI가 문단째로 인용합니다.</p>
+      </div>
+      <div class="card">
+        <h3>네이버 투트랙 운영 (NEO)</h3>
+        <p>네이버 블로그(inside)로 신뢰를 쌓고, 자기 도메인(outside)에 팩트 페이지를 세워 AI 브리핑 인용을 노립니다.</p>
+      </div>
+      <div class="card">
+        <h3>생성 AI 인용 (GEO)</h3>
+        <p>llms.txt·크롤러 정책·1차 소스 설계로 ChatGPT·Perplexity가 병원을 추천 목록에 올리게 만듭니다.</p>
+      </div>
+      <div class="card">
+        <h3>측정 리포트</h3>
+        <p>노출·클릭·AI 인용 3지표를 기준선부터 14일 재측정까지. "작업했습니다"가 아니라 "숫자가 움직였습니다"로 보고합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 직답 블록 (AEO 스타일 데모: 우리 사이트부터 이렇게 씁니다) -->
+  <section>
+    <div class="answer">
+      <span class="k">한 줄 결론</span>
+      상위노출이 안 되는 이유의 90%는 "글이 어떤 질문의 답인지 기계가 모르기 때문"입니다.
+      발행량을 늘리기 전에 구조부터 고쳐야 합니다.
+    </div>
+  </section>
+
+  <!-- 최신 인사이트 -->
+  <section aria-labelledby="latest">
+    <h2 id="latest" class="section-title">최신 인사이트</h2>
+    {posts.length === 0 ? (
+      <p style="color:var(--muted)">첫 글을 준비 중입니다.</p>
+    ) : (
+      <ul class="post-list">
+        {posts.map((p) => (
+          <li>
+            <a class="title" href={`/posts/${p.id}/`}>{p.data.title}</a>
+            <div class="meta">{fmt(p.data.pubDate)}</div>
+            <p class="excerpt">{p.data.answer}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+    <p style="margin-top:18px"><a href="/posts/">→ 전체 인사이트 보기</a></p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" aria-labelledby="faq">
+    <h2 id="faq" class="section-title">자주 묻는 질문</h2>
+    {faq.map((f) => (
+      <details>
+        <summary>{f.q}</summary>
+        <p>{f.a}</p>
+      </details>
+    ))}
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h" class="section-title">무료 진단 문의</h2>
+    <p style="color:var(--muted)">
+      현재 블로그 주소와 고민을 남겨주시면, 구조 진단 결과를 회신드립니다.
+    </p>
+
+    {SITE.naverFormUrl ? (
+      <div class="form-card">
+        <p style="margin-top:0">네이버 폼으로 간편하게 문의하실 수 있습니다.</p>
+        <a class="btn primary" href={SITE.naverFormUrl} target="_blank" rel="noopener noreferrer">
+          네이버 폼으로 문의하기 →
+        </a>
+        <p class="form-note">버튼을 누르면 네이버 폼이 새 창으로 열립니다.</p>
+      </div>
+    ) : (
+    <div class="form-card">
+      <form action={FORM_ENDPOINT} method="POST">
+        <div class="field">
+          <label for="name">성함 / 병원명</label>
+          <input id="name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="reply">회신받을 연락처 (이메일 또는 전화)</label>
+          <input id="reply" name="reply_to" type="text" required />
+        </div>
+        <div class="field">
+          <label for="blog">현재 네이버 블로그 주소 (선택)</label>
+          <input id="blog" name="blog_url" type="url" placeholder="https://blog.naver.com/..." />
+        </div>
+        <div class="field">
+          <label for="msg">가장 큰 고민 한 가지</label>
+          <textarea id="msg" name="message" required></textarea>
+        </div>
+        <button class="btn primary" type="submit">진단 요청 보내기</button>
+        <p class="form-note">
+          제출 시 입력하신 내용이 {SITE.email} 으로 전송됩니다. 마케팅 외 용도로 사용하지 않습니다.
+        </p>
+      </form>
+    </div>
+    )}
+  </section>
+</BaseLayout>

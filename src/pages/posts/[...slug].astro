@@ -1,0 +1,100 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../consts';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const fmt = (date: Date) => date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const url = new URL(`/posts/${post.id}/`, Astro.site).href;
+const orgId = new URL('/#org', Astro.site).href;
+
+// Article: 가시 텍스트 기반, 저자/발행자 = Organization 엔티티 참조
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  description: d.description,
+  datePublished: d.pubDate.toISOString(),
+  dateModified: (d.updatedDate ?? d.pubDate).toISOString(),
+  inLanguage: 'ko',
+  keywords: d.keywords.join(', '),
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  author: { '@id': orgId },
+  publisher: { '@id': orgId },
+};
+
+// FAQPage: frontmatter faq 가 있을 때만. 가시 텍스트(아래 렌더)와 100% 동일.
+const faqJsonLd =
+  d.faq.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: d.faq.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      }
+    : null;
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '홈', item: Astro.site?.href },
+    { '@type': 'ListItem', position: 2, name: '인사이트', item: new URL('/posts/', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: d.title, item: url },
+  ],
+};
+
+const jsonLd = [articleJsonLd, breadcrumb, ...(faqJsonLd ? [faqJsonLd] : [])];
+---
+
+<BaseLayout title={d.title} description={d.description} path={`/posts/${post.id}/`} ogType="article" jsonLd={jsonLd}>
+  <article class="prose" style="padding-top:40px">
+    <nav aria-label="위치" style="font-size:.85rem;color:var(--muted);margin-bottom:14px">
+      <a href="/">홈</a> › <a href="/posts/">인사이트</a>
+    </nav>
+
+    <h1>{d.title}</h1>
+    <div class="meta" style="color:var(--muted);font-size:.9rem;margin-bottom:24px">
+      {fmt(d.pubDate)}
+      {d.updatedDate && <> · 갱신 {fmt(d.updatedDate)}</>}
+      · {SITE.nameKo}
+    </div>
+
+    <!-- 첫 화면 직답 (AEO: 40자 내외 결론 먼저) -->
+    <div class="answer">
+      <span class="k">한 줄 결론</span>
+      {d.answer}
+    </div>
+
+    <Content />
+
+    {d.faq.length > 0 && (
+      <section class="faq" style="margin-top:40px">
+        <h2>자주 묻는 질문</h2>
+        {d.faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </section>
+    )}
+
+    <hr style="border:none;border-top:1px solid var(--border);margin:40px 0 24px" />
+    <p style="color:var(--muted)">
+      우리 병원도 이렇게 진단받고 싶다면 →
+      <a href="/#contact">무료 진단 문의</a>
+    </p>
+  </article>
+</BaseLayout>

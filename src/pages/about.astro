@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+---
+
+<BaseLayout
+  title="소개"
+  description="더베이직플랜은 병원 원장님을 위한 네이버 블로그 AEO/GEO 대행사입니다. 운영 원칙과 방법론을 공개합니다."
+  path="/about/"
+>
+  <section class="hero" style="padding-bottom:20px">
+    <span class="eyebrow">소개</span>
+    <h1>{SITE.nameKo} <span style="color:var(--muted);font-size:1rem">The Basic Plan</span></h1>
+    <p class="lead">{SITE.tagline}</p>
+  </section>
+
+  <section class="prose">
+    <h2>무엇을 하는 곳인가</h2>
+    <p>
+      더베이직플랜은 병원·의원 원장님을 위한 <strong>네이버 블로그 AEO/GEO 대행사</strong>입니다.
+      단순히 글을 많이 발행하는 것이 아니라, 검색엔진과 AI가 원장님 병원을 특정 질문의
+      <strong>답이자 1차 소스로 인용</strong>하도록 콘텐츠를 설계·발행·측정합니다.
+    </p>
+
+    <h2>운영 원칙 (정공법만)</h2>
+    <ul>
+      <li><strong>백링크 구매·품앗이·스팸을 하지 않습니다.</strong> 단기 순위가 아니라 병원 도메인 전체를 거는 도박이기 때문입니다.</li>
+      <li><strong>화면이 사실 아닌 것을 말하게 하지 않습니다.</strong> 과장 메타·거짓 구조화 데이터는 AI 인용 신뢰를 죽입니다.</li>
+      <li><strong>크롤러의 눈으로 검증합니다.</strong> "코드에 넣었다"가 아니라 "JS 없이 받은 HTML에 있다"가 기준입니다.</li>
+      <li><strong>측정 없이 완료를 주장하지 않습니다.</strong> 노출·클릭·AI 인용을 기준선부터 재측정까지 추적합니다.</li>
+    </ul>
+
+    <h2>5개 최적화 레인</h2>
+    <table>
+      <thead><tr><th>레인</th><th>목표</th></tr></thead>
+      <tbody>
+        <tr><td>SEO</td><td>JS 없이도 크롤러가 100% 읽는 기술 기반</td></tr>
+        <tr><td>AEO</td><td>구글·네이버 AI 답변 박스가 인용</td></tr>
+        <tr><td>GEO</td><td>ChatGPT·Perplexity가 1차 소스로 추천</td></tr>
+        <tr><td>LLMO</td><td>모델 지식 자체에 병원 브랜드를 각인</td></tr>
+        <tr><td>NEO(네이버)</td><td>네이버 검색·AI 브리핑 인용 (투트랙)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>이 사이트 자체가 데모입니다</h2>
+    <p>
+      이 페이지를 포함해 더베이직플랜 사이트는 위 방법론을 그대로 적용해 만들었습니다.
+      정적 HTML로 서빙되고, 구조화 데이터·llms.txt·크롤러 정책이 모두 심어져 있습니다.
+      대행을 맡기기 전에, 우리가 우리 사이트에 어떻게 적용했는지 먼저 확인하실 수 있습니다.
+    </p>
+
+    <p style="margin-top:28px"><a class="btn primary" href="/#contact">무료 진단 문의</a></p>
+  </section>
+</BaseLayout>

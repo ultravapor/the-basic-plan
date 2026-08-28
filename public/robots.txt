@@ -1,0 +1,41 @@
+# 더베이직플랜 robots.txt
+# 목표: 검색·AI 인용 유입 → AI 크롤러 전부 허용 (fire-your-seo-agency GEO 레인 기준)
+# 크롤러 명단은 변합니다. 분기마다 각사 문서로 갱신하세요.
+
+# 일반 검색엔진
+User-agent: *
+Allow: /
+
+# 네이버
+User-agent: Yeti
+Allow: /
+
+# AI — 학습
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+
+# AI — 검색 색인
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+
+# AI — 실시간 열람
+User-agent: ChatGPT-User
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+User-agent: Claude-User
+Allow: /
+
+Sitemap: https://the-basic-plan.vercel.app/sitemap-index.xml
