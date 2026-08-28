@@ -18,6 +18,11 @@ export const SITE = {
     // 'https://www.instagram.com/○○○',
   ],
   locale: 'ko_KR',
+  // 검색엔진 소유확인 코드 (HTML 태그 방식). 값이 있으면 <head>에 meta로 출력됩니다.
+  verification: {
+    naver: '5d6f08223ffd38a3bcaa4bf182b439a9f66a9e0f',
+    google: '', // 구글 서치콘솔 확인코드 받으면 여기에 (content 값만)
+  },
 } as const;
 
 export const NAV = [

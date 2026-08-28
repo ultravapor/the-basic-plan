@@ -58,6 +58,10 @@ const organization = {
     <link rel="canonical" href={canonical} />
     <meta name="robots" content="index, follow, max-image-preview:large" />
 
+    <!-- 검색엔진 소유확인 -->
+    {SITE.verification.naver && <meta name="naver-site-verification" content={SITE.verification.naver} />}
+    {SITE.verification.google && <meta name="google-site-verification" content={SITE.verification.google} />}
+
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.nameKo} />
