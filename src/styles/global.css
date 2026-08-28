@@ -33,6 +33,9 @@ body {
   color: var(--text);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  /* 한국어 줄바꿈: 단어 중간에서 끊지 않고 어절 단위로 (어색한 '보상을 만들어/드립니다' 방지) */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 a { color: var(--accent); text-decoration: none; }
@@ -87,6 +90,37 @@ section { padding: 28px 0; }
 }
 .card h3 { margin-top: 0; }
 .card p { color: var(--muted); margin-bottom: 0; }
+.grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 560px) { .grid--2 { grid-template-columns: 1fr; } }
+
+/* 문제 공감 체크리스트 */
+.problem { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 26px; }
+.problem ul { list-style: none; margin: 0; padding: 0; }
+.problem li { padding: 11px 0 11px 30px; position: relative; border-bottom: 1px dashed var(--border); }
+.problem li:last-child { border-bottom: none; }
+.problem li::before { content: "✓"; position: absolute; left: 2px; top: 11px; color: var(--accent); font-weight: 800; }
+.problem .verdict { margin: 18px 0 0; font-weight: 700; }
+
+/* 창업자 블록 */
+.founder { display: flex; gap: 22px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
+.founder .avatar { flex: 0 0 auto; width: 92px; height: 92px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: flex; align-items: center; justify-content: center; font-size: 1.9rem; font-weight: 800; overflow: hidden; }
+.founder .avatar img { width: 100%; height: 100%; object-fit: cover; }
+.founder .who { color: var(--muted); font-size: .9rem; margin: 6px 0 0; }
+@media (max-width: 560px) { .founder { flex-direction: column; text-align: center; } }
+
+/* 방법 단계 */
+.steps { counter-reset: step; display: grid; gap: 14px; }
+.step { display: flex; gap: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+.step::before { counter-increment: step; content: counter(step); flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.step h3 { margin: 2px 0 5px; font-size: 1.05rem; }
+.step p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+/* 비교표 (피해야 할 신호 vs 우리) */
+.compare { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: .95rem; }
+.compare th, .compare td { border: 1px solid var(--border); padding: 12px 14px; text-align: left; vertical-align: top; }
+.compare thead th { background: var(--surface); }
+.compare td:first-child { color: var(--muted); }
+.compare td:last-child { font-weight: 600; }
 
 /* Answer box (AEO 직답) */
 .answer {

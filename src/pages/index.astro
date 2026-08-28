@@ -10,19 +10,35 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft))
 
 const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 
-// 홈 FAQ — 사람들이 실제로 치는 질문. 가시 텍스트와 JSON-LD를 100% 동일하게 유지.
+// 타겟(대행사에 데인 병원 관계자)이 실제로 할 질문 — 블로그 근거 기반, 날조 없음.
 const faq = [
   {
-    q: '네이버 블로그에 글을 쓰는데 왜 상위노출이 안 되나요?',
-    a: '발행량이 아니라 구조 문제인 경우가 대부분입니다. 검색엔진과 네이버 AI가 "이 글이 어떤 질문의 답인지" 인식하도록 제목·첫 문단·소제목이 질문에 정렬돼 있어야 합니다. 더베이직플랜은 질문 하나당 페이지 하나 원칙으로 원고를 재설계합니다.',
+    q: '이전 대행사도 다 "잘한다"고 했는데, 여긴 뭐가 다른가요?',
+    a: '더베이직플랜은 원장 출신 대표가 직접 총괄하고, 대행 전 원장님과 1시간 인터뷰로 진료 철학부터 듣습니다. 병원명을 지우면 어디에도 붙는 복붙 글이 아니라, 그 병원만의 강점을 설득하는 콘텐츠를 만드는 것이 차이입니다.',
   },
   {
-    q: 'AEO와 GEO가 정확히 무엇인가요?',
-    a: 'AEO(답변엔진 최적화)는 구글·네이버 검색 상단의 AI 답변 박스가 병원을 인용하게 만드는 작업이고, GEO(생성엔진 최적화)는 ChatGPT·Perplexity 같은 생성 AI가 병원을 1차 소스로 추천하게 만드는 작업입니다. 둘 다 "추출·인용되기 좋은 문장 구조"가 핵심입니다.',
+    q: '상위노출이나 신환 수를 "보장"해 주나요?',
+    a: '보장하지 않습니다. "즉시 효과·상위노출 보장"은 저희가 가장 먼저 피하라고 말하는 위험 신호입니다. 병원 마케팅은 신뢰를 쌓는 브랜딩이라 시간이 필요합니다. 저희는 보장 대신 과정과 측정(노출·클릭·문의)을 약속합니다.',
   },
   {
-    q: '지금 대행사를 쓰고 있는데 성과가 없습니다. 무엇이 다른가요?',
-    a: '더베이직플랜은 "글 몇 개 발행" 보고가 아니라 노출·클릭·AI 인용 3개 지표를 기준선부터 재측정까지 추적합니다. 백링크 구매·품앗이 같은 정책 위반 없이 정공법만 씁니다.',
+    q: '원장이 바빠서 신경 못 쓰는데, 다 알아서 해주시나요?',
+    a: '"다 알아서 하겠다"는 저희가 경계하는 첫 번째 신호입니다. 대신 처음 1시간 인터뷰로 방향만 함께 잡고, 이후 실행은 저희가 맡습니다. 소통은 최소한으로, 부담은 적게 — 그래도 원장님의 철학이 콘텐츠에 담기게 합니다.',
+  },
+  {
+    q: '성과가 있는지 어떻게 확인하나요?',
+    a: '"조회수 XXX회" 자랑이 아니라, 노출·클릭·문의(전환)를 기준선부터 추적해 보고합니다. "조회수는 많은데 왜 예약 전화가 안 오나"에 답할 수 있어야 진짜 마케팅입니다.',
+  },
+  {
+    q: '월 비용은 얼마인가요? 최저가 대행사와 뭐가 다른가요?',
+    a: '"업계 최저가"만 앞세우는 곳은 저희도 경계합니다. 품질 낮은 콘텐츠는 병원 이미지를 오히려 깎아먹기 때문입니다. 비용은 병원 상황을 진단한 뒤 안내드리며, 무료 진단부터 부담 없이 시작하실 수 있습니다.',
+  },
+  {
+    q: '담당자가 자주 바뀌지 않나요?',
+    a: '원장 출신 대표가 직접 총괄합니다. 좋은 대행사는 원장님을 "고객"이 아니라 "파트너"로 봅니다 — 원장님의 성공이 곧 저희의 성공이라 생각합니다.',
+  },
+  {
+    q: '아직 확신이 안 서는데, 바로 계약해야 하나요?',
+    a: '아니요. 저희 인사이트 칼럼을 몇 개 먼저 읽어보시고, 방향이 맞는다 싶을 때 무료 진단을 신청하셔도 됩니다. 핏이 맞는 파트너를 찾는 것이 서로에게 좋습니다.',
   },
 ];
 
@@ -35,62 +51,142 @@ const faqJsonLd = {
     acceptedAnswer: { '@type': 'Answer', text: f.a },
   })),
 };
-
-// 문의폼 엔드포인트 — 배포 전에 실제 값으로 교체하세요 (아래 요약에 방법 있음)
-const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
 ---
 
 <BaseLayout title={SITE.nameKo} jsonLd={[faqJsonLd]}>
   <!-- HERO -->
   <section class="hero">
-    <span class="eyebrow">병원 · 의원 원장님 전용 · {SITE.service}</span>
+    <span class="eyebrow">병원·의원 전문 · 원장 출신 마케터가 직접</span>
     <h1>{SITE.tagline}</h1>
     <p class="lead">
-      네이버에 글은 쌓이는데 문의로 이어지지 않는다면, 문제는 발행량이 아니라 구조입니다.
-      더베이직플랜은 검색엔진과 AI(네이버 AI 브리핑·ChatGPT·Perplexity)가 원장님 병원을
-      <strong>1차 소스로 인용</strong>하도록 콘텐츠를 다시 설계합니다.
+      매달 마케팅비 300만원을 쓰는데 신환은 3명. 문제는 광고비가 아니라
+      <strong>‘구멍 난 마케팅’</strong>입니다. 더베이직플랜은 원장님의 진료 철학에서 출발해,
+      검색과 AI가 병원을 <strong>먼저 알아보게</strong> 만드는 콘텐츠를 설계합니다.
     </p>
     <div class="cta-row">
-      <a class="btn primary" href="#contact">무료 진단 문의</a>
+      <a class="btn primary" href="#contact">무료 마케팅 진단 신청</a>
       <a class="btn ghost" href="/posts/">인사이트 먼저 보기</a>
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section aria-labelledby="svc">
-    <h2 id="svc" class="section-title">무엇을 대행하나요</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>원고 구조 재설계 (AEO)</h3>
-        <p>질문 하나당 페이지 하나 원칙으로, 첫 문단 직답 + 근거 표 + FAQ 구조화 데이터까지. AI가 문단째로 인용합니다.</p>
-      </div>
-      <div class="card">
-        <h3>네이버 투트랙 운영 (NEO)</h3>
-        <p>네이버 블로그(inside)로 신뢰를 쌓고, 자기 도메인(outside)에 팩트 페이지를 세워 AI 브리핑 인용을 노립니다.</p>
-      </div>
-      <div class="card">
-        <h3>생성 AI 인용 (GEO)</h3>
-        <p>llms.txt·크롤러 정책·1차 소스 설계로 ChatGPT·Perplexity가 병원을 추천 목록에 올리게 만듭니다.</p>
-      </div>
-      <div class="card">
-        <h3>측정 리포트</h3>
-        <p>노출·클릭·AI 인용 3지표를 기준선부터 14일 재측정까지. "작업했습니다"가 아니라 "숫자가 움직였습니다"로 보고합니다.</p>
+  <!-- 문제 공감 -->
+  <section aria-labelledby="problem">
+    <h2 id="problem" class="section-title">이런 상황, 낯익지 않으신가요?</h2>
+    <div class="problem">
+      <ul>
+        <li>블로그 포스팅 30개를 올렸는데 예약 전화는 2통</li>
+        <li>광고비 월 200만원을 쓰는데 신환 전환은 3명 미만</li>
+        <li>대행사는 잘한다는데, 우리 병원 매출은 그대로</li>
+        <li>조회수는 자랑하는데 “왜 예약이 안 오냐”엔 답을 못 함</li>
+      </ul>
+      <p class="verdict">
+        3개 이상 해당된다면 — 매달 마케팅비가 ‘구멍 난 배’처럼 새고 있을 확률이 높습니다.
+        더 큰 문제는, 대부분의 병원이 그 구멍이 <em>어디인지조차</em> 모른다는 것입니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- 왜 (창업자·미션) -->
+  <section aria-labelledby="why">
+    <h2 id="why" class="section-title">왜 ‘원장 출신’이 마케팅을 하냐고요?</h2>
+    <div class="founder">
+      <div class="avatar" aria-hidden="true">강</div>
+      <div>
+        <p style="margin:0">
+          같은 길을 걸어봤기에 원장님의 막막함을 압니다. 병원 운영은 진료에 인사·노무·세무·CS까지…
+          그 외로움과 답답함을 알기에, 저는 <strong>행운을 바라며 일하지 않습니다.</strong>
+          운이 아니라 <strong>철저한 계획</strong>으로 합니다.
+          실력 있는 원장님은 그 실력에 걸맞은 보상을 받아야 한다고 믿습니다.
+        </p>
+        <p class="who">— {SITE.founder}, {SITE.nameKo} 대표 (원장 출신 마케터)</p>
       </div>
     </div>
   </section>
 
-  <!-- 직답 블록 (AEO 스타일 데모: 우리 사이트부터 이렇게 씁니다) -->
-  <section>
-    <div class="answer">
-      <span class="k">한 줄 결론</span>
-      상위노출이 안 되는 이유의 90%는 "글이 어떤 질문의 답인지 기계가 모르기 때문"입니다.
-      발행량을 늘리기 전에 구조부터 고쳐야 합니다.
+  <!-- 어떻게 (방법) -->
+  <section aria-labelledby="how">
+    <h2 id="how" class="section-title">그래서, 저희는 다르게 접근합니다</h2>
+    <div class="steps">
+      <div class="step">
+        <div>
+          <h3>대행 전, 원장님과 1시간 인터뷰</h3>
+          <p>병원 철학·환자층·운영 방식까지. 모든 전략은 원장님의 ‘진료 철학’을 듣는 데서 시작합니다.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>원장님 관점의 키워드 분석</h3>
+          <p>단순 검색량이 아니라 “우리 병원에 맞는 환자가 찾는 키워드”. 검색량 높은 키워드가 때론 독이 됩니다.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>마케팅 누수 지점 진단</h3>
+          <p>블로그·플레이스·유튜브 중 어디서 전환이 새는지 정확히 짚습니다. “아, 여기서 새고 있었구나!”</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>향후 3개월 맞춤 전략</h3>
+          <p>병원에 맞는 우선순위와 예상 효과까지. 감이 아니라 데이터 기반의 방향을 드립니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 차별점 (피해야 할 신호) -->
+  <section aria-labelledby="diff">
+    <h2 id="diff" class="section-title">이런 대행사는 피하세요 — 그리고 우리는 이렇게 다릅니다</h2>
+    <table class="compare">
+      <thead>
+        <tr><th>피해야 할 위험 신호</th><th>더베이직플랜</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>“원장님은 진료만 하세요, 다 알아서 할게요”</td>
+          <td>원장님의 진료 철학부터 듣고 함께 만듭니다 (파트너)</td>
+        </tr>
+        <tr>
+          <td>“즉시 효과·상위노출 보장합니다”</td>
+          <td>브랜딩은 시간이 필요합니다. 운이 아닌 계획으로 접근합니다</td>
+        </tr>
+        <tr>
+          <td>“업계 최저가”만 앞세움</td>
+          <td>잘못된 마케팅은 안 하느니만 못합니다. 품질을 지킵니다</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 서비스 -->
+  <section aria-labelledby="svc">
+    <h2 id="svc" class="section-title">무엇을 대행하나요</h2>
+    <div class="grid grid--2">
+      <div class="card">
+        <h3>원고 구조 재설계 (AEO)</h3>
+        <p>질문 하나당 페이지 하나 원칙으로, 첫 문단 직답 + 근거 표 + FAQ까지. AI가 문단째로 인용합니다.</p>
+      </div>
+      <div class="card">
+        <h3>네이버 투트랙 운영 (NEO)</h3>
+        <p>네이버 블로그(inside)로 신뢰를 쌓고, 자기 도메인(outside)에 팩트 페이지를 세웁니다.</p>
+      </div>
+      <div class="card">
+        <h3>생성 AI 인용 (GEO)</h3>
+        <p>llms.txt·크롤러 정책·1차 소스 설계로 ChatGPT·Perplexity가 병원을 추천 목록에 올리게 합니다.</p>
+      </div>
+      <div class="card">
+        <h3>측정 리포트</h3>
+        <p>조회수 자랑이 아니라 노출·클릭·문의 3지표를 기준선부터 추적해 “숫자가 움직였다”로 보고합니다.</p>
+      </div>
     </div>
   </section>
 
   <!-- 최신 인사이트 -->
   <section aria-labelledby="latest">
     <h2 id="latest" class="section-title">최신 인사이트</h2>
+    <p style="color:var(--muted);margin-top:-6px">
+      바로 계약하라고 하지 않습니다. 몇 개 읽어보시고 방향이 맞으면 그때 문의하세요.
+    </p>
     {posts.length === 0 ? (
       <p style="color:var(--muted)">첫 글을 준비 중입니다.</p>
     ) : (
@@ -120,44 +216,38 @@ const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
 
   <!-- CONTACT -->
   <section id="contact" aria-labelledby="contact-h">
-    <h2 id="contact-h" class="section-title">무료 진단 문의</h2>
+    <h2 id="contact-h" class="section-title">무료 마케팅 진단 신청</h2>
     <p style="color:var(--muted)">
-      현재 블로그 주소와 고민을 남겨주시면, 구조 진단 결과를 회신드립니다.
+      사전 설문에 답해주시면, 원장님 병원의 ‘마케팅 누수 지점’을 진단해 회신드립니다.
+      지금 상태를 방치하면 매달 새어나가는 비용은 계속됩니다.
     </p>
-
     {SITE.naverFormUrl ? (
       <div class="form-card">
-        <p style="margin-top:0">네이버 폼으로 간편하게 문의하실 수 있습니다.</p>
+        <p style="margin-top:0">네이버 폼(사전 설문지)으로 간편하게 신청하실 수 있습니다.</p>
         <a class="btn primary" href={SITE.naverFormUrl} target="_blank" rel="noopener noreferrer">
-          네이버 폼으로 문의하기 →
+          무료 진단 신청하기 →
         </a>
-        <p class="form-note">버튼을 누르면 네이버 폼이 새 창으로 열립니다.</p>
+        <p class="form-note">버튼을 누르면 네이버 사전 설문지가 새 창으로 열립니다.</p>
       </div>
     ) : (
-    <div class="form-card">
-      <form action={FORM_ENDPOINT} method="POST">
-        <div class="field">
-          <label for="name">성함 / 병원명</label>
-          <input id="name" name="name" type="text" required autocomplete="name" />
-        </div>
-        <div class="field">
-          <label for="reply">회신받을 연락처 (이메일 또는 전화)</label>
-          <input id="reply" name="reply_to" type="text" required />
-        </div>
-        <div class="field">
-          <label for="blog">현재 네이버 블로그 주소 (선택)</label>
-          <input id="blog" name="blog_url" type="url" placeholder="https://blog.naver.com/..." />
-        </div>
-        <div class="field">
-          <label for="msg">가장 큰 고민 한 가지</label>
-          <textarea id="msg" name="message" required></textarea>
-        </div>
-        <button class="btn primary" type="submit">진단 요청 보내기</button>
-        <p class="form-note">
-          제출 시 입력하신 내용이 {SITE.email} 으로 전송됩니다. 마케팅 외 용도로 사용하지 않습니다.
-        </p>
-      </form>
-    </div>
+      <div class="form-card">
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="field">
+            <label for="name">성함 / 병원명</label>
+            <input id="name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="reply">회신받을 연락처</label>
+            <input id="reply" name="reply_to" type="text" required />
+          </div>
+          <div class="field">
+            <label for="msg">가장 큰 고민 한 가지</label>
+            <textarea id="msg" name="message" required></textarea>
+          </div>
+          <button class="btn primary" type="submit">진단 요청 보내기</button>
+          <p class="form-note">제출 내용은 {SITE.email} 으로 전송됩니다.</p>
+        </form>
+      </div>
     )}
   </section>
 </BaseLayout>

@@ -8,6 +8,7 @@ export const SITE = {
   description:
     '더베이직플랜은 병원·의원 원장님을 위한 네이버 블로그 AEO/GEO 대행사입니다. 검색엔진과 AI(네이버 AI 브리핑·ChatGPT·Perplexity)가 병원을 1차 소스로 인용하도록 콘텐츠를 설계·발행합니다.',
   service: '네이버 블로그 AEO/GEO 대행',
+  founder: '강병문', // 더베이직플랜 대표, 원장 출신 마케터
   email: 'ultravapor@naver.com',
   // 네이버 폼(오피스 폼) URL을 넣으면 문의 섹션이 '네이버 폼으로 문의' 버튼으로 바뀝니다.
   // 비워두면 아래 Formspree 인라인 폼을 사용합니다. 둘 중 편한 쪽만 쓰면 됩니다.
