@@ -102,15 +102,22 @@ section { padding: 28px 0; }
 .post-list .meta { color: var(--muted); font-size: .85rem; margin-top: 4px; }
 .post-list .excerpt { color: var(--muted); margin: 8px 0 0; }
 
-/* Article body */
-.prose { font-size: 1.05rem; }
-.prose h2 { border-bottom: 1px solid var(--border); padding-bottom: .3em; }
-.prose table { width: 100%; border-collapse: collapse; margin: 1.2em 0; font-size: .95rem; }
-.prose th, .prose td { border: 1px solid var(--border); padding: 10px 12px; text-align: left; }
+/* Article body — 가독성 중심 (넉넉한 줄간격·문단 여백) */
+.prose { font-size: 1.06rem; line-height: 1.9; }
+.prose p { margin: 0 0 1.5em; }
+.prose h2 { border-bottom: 1px solid var(--border); padding-bottom: .3em; margin-top: 2.6em; }
+.prose h3 { margin-top: 1.9em; }
+.prose table { width: 100%; border-collapse: collapse; margin: 1.6em 0; font-size: .95rem; }
+.prose th, .prose td { border: 1px solid var(--border); padding: 11px 14px; text-align: left; }
 .prose th { background: var(--surface); }
-.prose ul, .prose ol { padding-left: 1.3em; }
-.prose blockquote { border-left: 3px solid var(--accent); margin: 1em 0; padding: .4em 1em; color: var(--muted); }
+.prose ul, .prose ol { padding-left: 1.3em; margin: 1.2em 0; }
+.prose li { margin: .55em 0; }
+.prose blockquote { border-left: 3px solid var(--accent); margin: 1.4em 0; padding: .6em 1.2em; color: var(--muted); }
 .prose code { background: var(--surface); padding: .15em .4em; border-radius: 6px; font-size: .9em; }
+/* 체크리스트 (- [ ] 항목) */
+.prose ul.contains-task-list { list-style: none; padding-left: .2em; }
+.prose ul.contains-task-list li { display: flex; align-items: flex-start; gap: .5em; }
+.prose ul.contains-task-list input[type="checkbox"] { margin-top: .45em; accent-color: var(--accent); }
 
 /* FAQ */
 .faq details {
