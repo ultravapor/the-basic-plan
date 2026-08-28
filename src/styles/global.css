@@ -1,11 +1,12 @@
 :root {
-  --bg: #ffffff;
-  --surface: #f6f7f9;
-  --border: #e4e7ec;
-  --text: #16181d;
-  --muted: #5b6472;
-  --accent: #1f6feb;
-  --accent-ink: #ffffff;
+  /* 위닝컬러 70:25:5 — 배경(흰색) 70% : 보조(그린틴트) 25% : 주제(#1C5910) 5% */
+  --bg: #ffffff;          /* 배경색 70% */
+  --surface: #f2f6f1;     /* 보조색 면 (카드·섹션·폼) */
+  --border: #dde6da;      /* 보조색 경계 (그린틴트) */
+  --text: #17211a;        /* 본문 (그린 언더톤 블랙) */
+  --muted: #56635a;       /* 보조 텍스트 (그린그레이) */
+  --accent: #1c5910;      /* 주제색 5% (포인트 전용) */
+  --accent-ink: #ffffff;  /* 주제색 위 글자 */
   --radius: 14px;
   --maxw: 860px;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo",
@@ -13,12 +14,13 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f1115;
-    --surface: #171a21;
-    --border: #262b35;
-    --text: #e8eaed;
-    --muted: #9aa4b2;
-    --accent: #4f8cff;
+    --bg: #0f140f;        /* 딥그린-블랙 배경 */
+    --surface: #172016;
+    --border: #273327;
+    --text: #e7ece4;
+    --muted: #94a394;
+    --accent: #5ca34a;    /* 다크 배경용 밝은 그린 포인트 */
+    --accent-ink: #0c120b;/* 밝은 그린 버튼 위 어두운 글자 */
   }
 }
 
