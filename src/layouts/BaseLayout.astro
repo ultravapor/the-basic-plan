@@ -1,5 +1,6 @@
 ---
 import { SITE, NAV } from '../consts';
+import Analytics from '@vercel/analytics/astro';
 import '../styles/global.css';
 
 interface Props {
@@ -98,5 +99,6 @@ const organization = {
         <div><a href={`mailto:${SITE.email}`}>{SITE.email}</a></div>
       </div>
     </footer>
+    <Analytics />
   </body>
 </html>
