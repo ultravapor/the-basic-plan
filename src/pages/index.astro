@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../consts';
+import { SITE, isPublished } from '../consts';
 
-const posts = (await getCollection('posts', ({ data }) => !data.draft && data.pubDate <= new Date()))
+const posts = (await getCollection('posts', ({ data }) => !data.draft && isPublished(data.pubDate)))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });

@@ -26,6 +26,12 @@ export const SITE = {
   },
 } as const;
 
+// 예약 발행: pubDate가 '한국시간(KST) 오늘' 이하이면 게시. (서버 UTC와 무관하게 KST 기준)
+export function isPublished(pubDate: Date): boolean {
+  const kstToday = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  return pubDate.toISOString().slice(0, 10) <= kstToday;
+}
+
 export const NAV = [
   { href: '/', label: '홈' },
   { href: '/posts/', label: '인사이트' },
