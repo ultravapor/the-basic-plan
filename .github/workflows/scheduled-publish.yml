@@ -1,0 +1,23 @@
+name: 예약 발행 (매일 재빌드)
+
+# 미래 날짜로 써둔 글(pubDate)이 그날이 되면 자동으로 사이트에 뜨게,
+# 매일 한 번 Vercel 재빌드를 트리거한다.
+# (재빌드는 새 커밋 없이 현재 main을 다시 배포 → Vercel Hobby 커밋 검사에 안 걸림)
+
+on:
+  schedule:
+    - cron: '10 0 * * *' # 매일 UTC 00:10 = 한국시간 오전 9:10
+  workflow_dispatch: {} # GitHub Actions 화면에서 수동 실행도 가능
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vercel 재빌드 트리거
+        run: |
+          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK }}" ]; then
+            echo "VERCEL_DEPLOY_HOOK 시크릿이 없습니다. 설정 후 동작합니다."
+            exit 0
+          fi
+          curl -fsS -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
+          echo "재빌드 요청 완료"
