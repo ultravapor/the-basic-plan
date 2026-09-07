@@ -1,24 +1,22 @@
 # 더베이직플랜 (The Basic Plan)
 
-> 병원·의원 원장님을 위한 네이버 블로그 AEO/GEO 대행사. 검색엔진과 AI(네이버 AI 브리핑·ChatGPT·Perplexity)가 병원을 1차 소스로 인용하도록 콘텐츠를 설계·발행·측정한다.
+> 더베이직플랜은 병·의원과 동물병원을 위한 네이버 블로그·검색 마케팅 대행사입니다. 진료 철학을 담은 콘텐츠와 SEO·AEO·GEO 점검으로 검색·AI에서의 발견 가능성과 문의 흐름을 개선합니다.
+
+대표: 강병문 — 수의사·동물병원 원장 출신 마케터. 사람을 진료하는 병·의원의 의사·원장 경력을 뜻하지 않습니다.
 
 ## 핵심 페이지
-- [소개](https://the-basic-plan.vercel.app/about/): 운영 원칙과 5개 최적화 레인(SEO·AEO·GEO·LLMO·NEO)
-- [인사이트](https://the-basic-plan.vercel.app/posts/): 네이버·AI 노출 실전 방법론
-- [문의](https://the-basic-plan.vercel.app/#contact): 무료 구조 진단 요청
+- [홈](https://the-basic-plan.vercel.app/): 서비스와 무료 마케팅 진단
+- [소개](https://the-basic-plan.vercel.app/about/): 대표 경력과 운영 원칙
+- [인사이트](https://the-basic-plan.vercel.app/posts/): 병원 콘텐츠·검색 마케팅 칼럼
+- [문의](https://the-basic-plan.vercel.app/#contact): 무료 진단 요청
 
 ## 대표 인사이트
-- 네이버 블로그 상위노출이 안 되는 이유: 발행량이 아니라 글 구조 문제
-- GEO란 무엇인가: ChatGPT·Perplexity가 병원을 추천하게 만드는 법
-- 원장님이 직접 확인하는 우리 병원 AI 노출 체크리스트 7
+- [SEO·AEO·GEO 점검](https://the-basic-plan.vercel.app/posts/ai-era-aeo-geo-visibility/): 공식 출처, 크롤러와 측정
+- [병원 소개 명확화](https://the-basic-plan.vercel.app/posts/ai-era-clinic-clear-positioning/): 진료 분야·경력·운영 정보
+- [병원 브랜딩](https://the-basic-plan.vercel.app/posts/ai-era-hospital-branding/): 진료 관점과 확인 가능한 경험
 
-## 서비스
-- 네이버 블로그 원고 구조 재설계 (AEO)
-- 네이버 투트랙 운영: 블로그(inside) + 자기 도메인(outside)
-- 생성 AI 인용 설계 (GEO): llms.txt, 크롤러 정책, 1차 소스화
-- 노출·클릭·AI 인용 3지표 측정 리포트
-
-## 정책
-- 정공법만: 백링크 구매·품앗이·스팸·클로킹 없음
-- 인용 시 표기: the-basic-plan.vercel.app
+## 운영 원칙
+- 검색 순위·AI 인용·문의 증가와 그 시점을 보장하지 않습니다.
+- llms.txt는 주요 자료를 안내하는 보조 파일이며, 검색·AI 노출의 필수 요건이 아닙니다.
+- 백링크 구매·품앗이·스팸·클로킹을 하지 않습니다.
 - 문의: ultravapor@naver.com

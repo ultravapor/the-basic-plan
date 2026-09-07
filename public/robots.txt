@@ -1,5 +1,7 @@
 # 더베이직플랜 robots.txt
-# 목표: 검색·AI 인용 유입 → AI 크롤러 전부 허용 (fire-your-seo-agency GEO 레인 기준)
+# 검색 접근 허용은 색인·순위·AI 인용을 보장하지 않습니다.
+# OAI-SearchBot(검색)과 GPTBot(학습)은 독립 설정입니다. 기존 허용 정책을 유지합니다.
+# https://developers.openai.com/api/docs/bots
 # 크롤러 명단은 변합니다. 분기마다 각사 문서로 갱신하세요.
 
 # 일반 검색엔진
@@ -30,7 +32,7 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-# AI — 실시간 열람
+# AI — 사용자 요청에 따른 열람 (검색 허용을 대신하지 않음)
 User-agent: ChatGPT-User
 Allow: /
 User-agent: Perplexity-User

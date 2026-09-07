@@ -20,6 +20,9 @@ const orgId = new URL('/#org', Astro.site).href;
 const articleJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Article',
+  '@id': `${url}#article`,
+  url,
+  isPartOf: { '@id': new URL('/#website', Astro.site).href },
   headline: d.title,
   description: d.description,
   datePublished: d.pubDate.toISOString(),
@@ -68,7 +71,7 @@ const jsonLd = [articleJsonLd, breadcrumb, ...(faqJsonLd ? [faqJsonLd] : [])];
     <div class="meta" style="color:var(--muted);font-size:.9rem;margin-bottom:24px">
       {fmt(d.pubDate)}
       {d.updatedDate && <> · 갱신 {fmt(d.updatedDate)}</>}
-      · {SITE.nameKo}
+      · 작성: <a href="/about/">{SITE.nameKo}</a>
     </div>
 
     <!-- 첫 화면 직답 (AEO: 40자 내외 결론 먼저) -->

@@ -21,7 +21,11 @@ const {
   jsonLd = [],
 } = Astro.props;
 
-const canonical = new URL(path, Astro.site).href;
+const canonicalUrl = new URL(path, Astro.site);
+canonicalUrl.search = '';
+canonicalUrl.hash = '';
+canonicalUrl.pathname = `${canonicalUrl.pathname.replace(/\/+$/, '')}/`;
+const canonical = canonicalUrl.href;
 const fullTitle =
   title === SITE.nameKo ? `${SITE.nameKo} — ${SITE.service}` : `${title} | ${SITE.nameKo}`;
 
@@ -37,6 +41,7 @@ const organization = {
   description: SITE.description,
   email: SITE.email,
   slogan: SITE.tagline,
+  founder: { '@id': new URL('/about/#founder', Astro.site).href },
   knowsAbout: ['네이버 블로그 최적화', 'AEO 답변엔진 최적화', 'GEO 생성엔진 최적화', '병원 마케팅', '검색 노출'],
   ...(SITE.sameAs.length ? { sameAs: SITE.sameAs } : {}),
   contactPoint: {
@@ -46,6 +51,16 @@ const organization = {
     areaServed: 'KR',
     availableLanguage: ['ko'],
   },
+};
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': new URL('/#website', Astro.site).href,
+  url: Astro.site?.href,
+  name: SITE.nameKo,
+  alternateName: SITE.nameEn,
+  inLanguage: 'ko-KR',
+  publisher: { '@id': orgId },
 };
 ---
 
@@ -70,12 +85,13 @@ const organization = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={SITE.locale} />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <!-- 전역 Organization 엔티티 -->
     <script type="application/ld+json" set:html={JSON.stringify(organization)} />
+    <script type="application/ld+json" set:html={JSON.stringify(website)} />
     <!-- 페이지 고유 구조화 데이터 -->
     {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
   </head>

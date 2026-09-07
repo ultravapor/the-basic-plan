@@ -7,16 +7,18 @@ const orgId = new URL('/#org', Astro.site).href;
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': new URL('/about/#founder', Astro.site).href,
+  url: new URL('/about/#founder', Astro.site).href,
   name: SITE.founder,
   jobTitle: '대표',
-  description: '원장 출신 마케터. 병·의원 전문 AEO/GEO 마케팅을 직접 총괄한다.',
+  description: `${SITE.founderBackground}. 더베이직플랜의 병·의원·동물병원 마케팅을 총괄합니다.`,
   worksFor: { '@id': orgId },
 };
 ---
 
 <BaseLayout
-  title="소개"
-  description="더베이직플랜은 원장 출신 대표 강병문이 직접 총괄하는 병·의원 전문 AEO/GEO 마케팅입니다. 운을 바라지 않고, 원장님의 진료 철학에서 출발합니다."
+  title="강병문 대표 소개 · 수의사·동물병원 운영 배경"
+  description="더베이직플랜은 수의사·동물병원 원장 출신 대표 강병문이 직접 총괄하는 병·의원 전문 AEO/GEO 마케팅입니다. 운을 바라지 않고, 원장님의 진료 철학에서 출발합니다."
   path="/about/"
   jsonLd={[personJsonLd]}
 >
@@ -28,19 +30,19 @@ const personJsonLd = {
 
   <!-- 창업자 -->
   <section aria-labelledby="founder">
-    <h2 id="founder" class="section-title">왜 ‘원장 출신’이 마케팅을 하는가</h2>
+    <h2 id="founder" class="section-title">수의사·동물병원 원장 경험에서 시작한 마케팅</h2>
     <div class="founder" style="margin-bottom:22px">
       <div class="avatar" aria-hidden="true">강</div>
       <div>
         <p style="margin:0"><strong>{SITE.founder}</strong> · {SITE.nameKo} 대표</p>
-        <p class="who">원장 출신 마케터 · 병·의원 전문 AEO/GEO</p>
+        <p class="who">수의사·동물병원 원장 출신 마케터 · 병·의원 전문 AEO/GEO</p>
       </div>
     </div>
     <div class="prose">
       <p>
-        병원 운영은 진료가 전부가 아닙니다. 인사·노무·세무·소모품·CS까지, 매일 최선을 다해도
-        인정받기 어려운 외로운 길입니다. 저는 그 길을 <strong>같이 걸어봤기에</strong> 원장님의
-        막막함을 압니다.
+        저는 <strong>수의사이자 동물병원 원장으로 일한 경험</strong>을 바탕으로 마케팅을 합니다.
+        이 경력은 사람을 진료하는 병·의원의 의사·원장 경력을 뜻하지 않습니다.
+        동물병원 운영에서 겪은 고민을 출발점으로, 각 병·의원의 진료 분야와 운영 상황은 담당 원장님과의 인터뷰로 파악합니다.
       </p>
       <p>
         그래서 저는 <strong>행운을 바라면서 일하지 않습니다.</strong> 행운은 본질적으로 불운과
@@ -50,7 +52,7 @@ const personJsonLd = {
       <p>
         믿음은 하나입니다. <strong>실력 있는 원장님은 그 실력에 걸맞은 보상을 받아야 합니다.</strong>
         환자에게 진짜 도움이 되는 병원이 마케팅 때문에 묻히는 일이 없도록, 그 실력이 검색과 AI에
-        먼저 드러나게 만드는 것이 제 일입니다.
+        정확히 전달될 수 있도록 콘텐츠를 만드는 것이 제 일입니다.
       </p>
     </div>
   </section>
@@ -107,12 +109,19 @@ const personJsonLd = {
 
   <!-- 데모 -->
   <section aria-labelledby="demo" class="prose">
-    <h2 id="demo">이 사이트 자체가 방법론의 증거입니다</h2>
+    <h2 id="demo">이 사이트에서 적용 내용을 확인하세요</h2>
     <p>
       이 페이지를 포함한 더베이직플랜 사이트는 저희가 병원에 적용하는 방법론(SEO·AEO·GEO·LLMO·네이버)을
-      그대로 적용해 만들었습니다. 정적 HTML로 서빙되고, 구조화 데이터·llms.txt·크롤러 정책이 모두
-      심어져 있습니다. 맡기기 전에, 저희가 저희 사이트에 어떻게 적용했는지 먼저 확인하실 수 있습니다.
+      적용해 만들었습니다. 읽기 쉬운 콘텐츠, 페이지별 제목과 설명, 내부 링크와 크롤러 접근을 점검합니다.
+      이런 구현은 검색 순위나 AI 인용 성과의 증거가 아닙니다. llms.txt는 보조 안내 파일로 관리하며, 노출의 필수 요건으로 취급하지 않습니다.
     </p>
+    <h3>검색·AI 콘텐츠 운영의 공식 참고 자료</h3>
+    <ul>
+      <li><a href="https://developers.google.com/search/docs/appearance/ai-features">Google Search Central: AI 기능과 웹사이트</a> — 기본 SEO와 유용한 콘텐츠를 우선하며, 노출은 보장되지 않습니다.</li>
+      <li><a href="https://developers.openai.com/api/docs/bots">OpenAI: 크롤러 안내</a> — 검색용 OAI-SearchBot과 학습용 GPTBot의 목적을 구분합니다.</li>
+      <li><a href="https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a">Bing Webmaster Guidelines</a> — 검색엔진이 접근하고 이해할 수 있는 정확한 콘텐츠를 기준으로 삼습니다.</li>
+    </ul>
+    <p><a href="/posts/ai-era-aeo-geo-visibility/">병원 SEO·AEO·GEO 점검 방법과 한계 보기</a></p>
     <p style="margin-top:28px"><a class="btn primary" href="/#contact">무료 마케팅 진단 신청</a></p>
   </section>
 </BaseLayout>

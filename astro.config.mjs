@@ -6,9 +6,10 @@ import sitemap from '@astrojs/sitemap';
 // 지금은 무료 배포용 임시 주소. sitemap/canonical/JSON-LD가 전부 이 값을 씁니다.
 export default defineConfig({
   site: 'https://the-basic-plan.vercel.app',
+  trailingSlash: 'always',
   integrations: [sitemap()],
   build: {
-    // 정적 HTML로 전부 빌드 → JS 없이 크롤러가 100% 읽음 (SEO 레인 1순위)
+    // 핵심 콘텐츠를 JavaScript 실행 없이 읽을 수 있도록 정적 HTML로 빌드합니다.
     format: 'directory',
   },
 });

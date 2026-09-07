@@ -11,7 +11,7 @@ const fmt = (d: Date) => d.toLocaleDateString('ko-KR', { year: 'numeric', month:
 const faq = [
   {
     q: '이전 대행사도 다 "잘한다"고 했는데, 여긴 뭐가 다른가요?',
-    a: '더베이직플랜은 원장 출신 대표가 직접 총괄하고, 대행 전 원장님과 1시간 인터뷰로 진료 철학부터 듣습니다. 병원명을 지우면 어디에도 붙는 복붙 글이 아니라, 그 병원만의 강점을 설득하는 콘텐츠를 만드는 것이 차이입니다.',
+    a: '더베이직플랜은 수의사·동물병원 원장 출신 대표가 직접 총괄하고, 대행 전 원장님과 1시간 인터뷰로 진료 철학부터 듣습니다. 병원명을 지우면 어디에도 붙는 복붙 글이 아니라, 그 병원만의 강점을 설득하는 콘텐츠를 만드는 것이 차이입니다.',
   },
   {
     q: '상위노출이나 신환 수를 "보장"해 주나요?',
@@ -31,7 +31,7 @@ const faq = [
   },
   {
     q: '담당자가 자주 바뀌지 않나요?',
-    a: '원장 출신 대표가 직접 총괄합니다. 좋은 대행사는 원장님을 "고객"이 아니라 "파트너"로 봅니다 — 원장님의 성공이 곧 저희의 성공이라 생각합니다.',
+    a: '수의사·동물병원 원장 출신 대표가 직접 총괄합니다. 좋은 대행사는 원장님을 "고객"이 아니라 "파트너"로 봅니다 — 원장님의 성공이 곧 저희의 성공이라 생각합니다.',
   },
   {
     q: '아직 확신이 안 서는데, 바로 계약해야 하나요?',
@@ -48,14 +48,13 @@ const faqJsonLd = {
 <BaseLayout title={SITE.nameKo} jsonLd={[faqJsonLd]}>
   <!-- ① 주인공 + 후킹 : 손님(원장)의 아픔에서 시작 -->
   <section class="hero">
-    <span class="eyebrow">병원·의원 전문 · 원장 출신 마케터가 직접</span>
+    <span class="eyebrow">병·의원·동물병원 전문 · 수의사 출신 대표가 직접</span>
     <p class="hook">매달 마케팅비는 꼬박꼬박 나가는데,<br />신환은 왜 늘지 않을까요?</p>
-    <h1>실력 있는 원장님에게<br />더 많은 보상을 만들어드립니다</h1>
+    <h1>병원 블로그·검색 마케팅<br />진료 철학을 담은 AEO·GEO</h1>
     <p class="lead">
-      매달 마케팅비 300만원을 쓰는데 신환은 3명.<br />
-      문제는 광고비가 아니라 <strong>‘구멍 난 마케팅’</strong>입니다.<br />
-      더베이직플랜은 원장님의 진료 철학에서 출발해,<br />
-      검색과 AI가 병원을 <strong>먼저 알아보게</strong> 만드는 콘텐츠를 설계합니다.
+      더베이직플랜은 <strong>병·의원과 동물병원의 네이버 블로그·검색 마케팅</strong>을 대행합니다.<br />
+      원장님의 진료 철학을 콘텐츠로 정리하고, SEO·AEO·GEO 점검으로<br />
+      검색·AI에서 병원을 발견하고 <strong>문의하기까지의 흐름</strong>을 개선합니다.
     </p>
     <div class="cta-row">
       <a class="btn primary" href="#contact">무료 마케팅 진단 신청</a>
@@ -68,8 +67,8 @@ const faqJsonLd = {
     <h2 id="problem" class="section-title">이런 상황, 낯익지 않으신가요?</h2>
     <div class="problem">
       <ul>
-        <li>블로그 포스팅 30개를 올렸는데 예약 전화는 2통</li>
-        <li>광고비 월 200만원을 쓰는데 신환 전환은 3명 미만</li>
+        <li>블로그 포스팅을 꾸준히 올려도 예약 전화가 드물다</li>
+        <li>광고비는 늘어나는데 신환 문의는 기대에 못 미친다</li>
         <li>대행사는 잘한다는데, 우리 병원 매출은 그대로</li>
         <li>조회수는 자랑하는데 “왜 예약이 안 오냐”엔 답을 못 함</li>
       </ul>
@@ -90,12 +89,12 @@ const faqJsonLd = {
     <div class="founder" style="margin-bottom:18px">
       <div class="avatar" aria-hidden="true">강</div>
       <div>
-        <p style="margin:0"><strong>{SITE.founder}</strong> · {SITE.nameKo} 대표 · 원장 출신 마케터</p>
-        <p class="who">수백 곳의 병·의원을 분석하며 ‘성공하는 마케팅의 공통 공식’을 찾았습니다.</p>
+        <p style="margin:0"><strong>{SITE.founder}</strong> · {SITE.nameKo} 대표 · {SITE.founderBackground}</p>
+        <p class="who">동물병원 운영 경험을 바탕으로 원장님의 진료 철학과 운영 고민부터 듣습니다. <a href="/about/#founder">대표 소개</a></p>
       </div>
     </div>
     <p style="color:var(--muted);max-width:640px">
-      대행사 선택의 실패가 단순히 돈의 문제가 아니라는 걸 압니다. 원장 출신이기에, 매일 최선을
+      대행사 선택의 실패가 단순히 돈의 문제가 아니라는 걸 압니다. 동물병원을 운영했던 수의사로서, 매일 최선을
       다해도 인정받기 어려운 그 외로움도 압니다. 그래서 저는 <strong>행운을 바라며 일하지
       않습니다</strong> — 운이 아니라 철저한 계획으로 원장님의 실력을 드러냅니다.
     </p>
@@ -162,7 +161,7 @@ const faqJsonLd = {
   <section aria-labelledby="success">
     <h2 id="success" class="section-title">무엇이 달라지나</h2>
     <table class="compare">
-      <thead><tr><th>지금 (Before)</th><th>함께한 뒤 (After)</th></tr></thead>
+      <thead><tr><th>현재의 고민</th><th>함께 개선할 목표</th></tr></thead>
       <tbody>
         <tr><td>마케팅 보고서를 봐도 답답했다</td><td>데이터 기반의 명확한 방향을 갖는다</td></tr>
         <tr><td>감에 의존하는 결정이 불안했다</td><td>우리 병원만의 이기는 전략에 확신이 생긴다</td></tr>
@@ -170,7 +169,7 @@ const faqJsonLd = {
       </tbody>
     </table>
     <p style="color:var(--muted);font-size:.9rem;margin-top:10px">
-      ※ 실제 대행 중인 원장님들의 후기는 준비되는 대로 이곳에 담습니다.
+      ※ 위 내용은 개선 목표입니다. 검색 순위·AI 인용·문의 증가와 그 시점을 보장하지 않습니다.
     </p>
   </section>
 
