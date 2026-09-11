@@ -21,3 +21,12 @@ jobs:
           fi
           curl -fsS -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
           echo "재빌드 요청 완료"
+
+      - name: 코드 체크아웃 (IndexNow 스크립트용)
+        uses: actions/checkout@v4
+
+      - name: 재배포 반영 대기
+        run: sleep 120
+
+      - name: IndexNow 제출 (Bing·네이버·Yandex)
+        run: node scripts/indexnow.mjs

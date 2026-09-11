@@ -11,7 +11,8 @@
     "astro": "astro",
     "naver:list": "node scripts/naver-import.mjs list",
     "naver:scrape": "node scripts/naver-import.mjs scrape",
-    "naver:rewrite": "node scripts/naver-rewrite.mjs"
+    "naver:rewrite": "node scripts/naver-rewrite.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.0",
