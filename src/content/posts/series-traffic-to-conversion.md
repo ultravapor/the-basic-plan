@@ -22,7 +22,7 @@ faq:
 3. [문제는 유입이 아니라 ‘선택 이유’였다](/posts/not-traffic-but-reason-to-choose/) — 해석
 4. [병원 블로그, 노출 이후 문의를 돕는 콘텐츠는 무엇이 다를까?](/posts/hospital-blog-marketing-agency-branding-vs-exposure/) — 통념 다시 보기
 5. [AI가 모든 걸 답해주는 시대, 병원은 왜 더 ‘브랜딩’이 필요할까?](/posts/ai-era-hospital-branding/) — 전망
-6. 전환이 어디서 새는지 스스로 진단하는 법 — 처방 (준비 중)
+6. [전환이 어디서 새는지 스스로 진단하는 법](/posts/conversion-self-diagnosis/) — 처방
 7. 우리 병원만의 ‘선택 이유’ 한 문단 만들기 — 처방 (준비 중)
 8. [환자가 검색 대신 AI에게 묻는 시대, 병원은 어디에 노출돼야 할까?](/posts/ai-era-aeo-geo-visibility/) — 발견되기
 9. [대행사를 바꿔도 왜 결과는 똑같을까?](/posts/why-switching-agencies-same-result/) — 정리
