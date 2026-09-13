@@ -40,7 +40,8 @@ for (const file of walk(root).filter(f => f.endsWith('.html'))) {
   const article = blocks.find(b => b['@type'] === 'Article');
   if (article) {
     assert.equal(article.url, canonical);
-    assert.equal(article.author['@id'], org['@id']);
+    // author = 창업자 Person(#founder, E-E-A-T), publisher = Organization(#org)
+    assert.equal(article.author['@id'], `${site}/about/#founder`);
     assert.equal(article.publisher['@id'], org['@id']);
     assert(new Date(article.dateModified) >= new Date(article.datePublished));
   }

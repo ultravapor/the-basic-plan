@@ -14,9 +14,9 @@ export const SITE = {
   // 네이버 폼(오피스 폼) URL을 넣으면 문의 섹션이 '네이버 폼으로 문의' 버튼으로 바뀝니다.
   // 비워두면 아래 Formspree 인라인 폼을 사용합니다. 둘 중 편한 쪽만 쓰면 됩니다.
   naverFormUrl: 'https://naver.me/GtJYgKzW',
-  // 배포 후 실제 계정이 생기면 채웁니다 (LLMO: sameAs 엔티티 연결)
+  // 실제 운영 계정 (LLMO: sameAs 엔티티 연결 — 같은 실체임을 AI에 알림)
   sameAs: [
-    // 'https://blog.naver.com/○○○',
+    'https://blog.naver.com/tndmltk9012',
     // 'https://www.instagram.com/○○○',
   ],
   locale: 'ko_KR',
