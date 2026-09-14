@@ -41,7 +41,7 @@ faq:
 - [보호자의 불신을 신뢰로 바꾸는 법](/posts/animal-hospital-trust-marketing/) — 동물병원 마케팅에서 가장 먼저 넘는 벽
 - [실패 없는 마케팅 대행사 고르는 법](/posts/hospital-marketing-agency-selection-guide/) — 맡기기 전에 볼 위험 신호
 - [대행사, 언제 갈아타야 할까](/posts/when-to-switch-hospital-marketing-agency/) — 바꿔야 할 신호 5가지
-- 동물병원, 블로그와 인스타 어디에 집중할까 — 준비 중
+- [동물병원, 블로그와 인스타 어디에 집중할까](/posts/animal-hospital-blog-vs-instagram/) — 새 보호자에게 닿는 채널 정하기
 - “○○동 동물병원” 검색에서 우리가 뜨게 하는 법 — 준비 중
 
 ## 수의사 출신이라 먼저 짚는 것
