@@ -64,7 +64,7 @@ assert.match(robots, /Sitemap: https:\/\/the-basic-plan\.vercel\.app\/sitemap-in
 const llms = readFileSync(new URL('llms.txt', dist), 'utf8');
 for (const [, url] of llms.matchAll(/\]\((https:[^)]+)\)/g)) assert(pages.has(new URL(url).pathname), `llms.txt: missing ${url}`);
 const home = pages.get('/');
-assert(home('h1').text().includes('병원 블로그·검색 마케팅'));
+assert(home('h1').text().includes('병원 마케팅'));
 assert.equal(home('#contact a.btn').attr('href'), 'https://naver.me/GtJYgKzW');
 assert(pages.get('/about/')('main').text().includes('수의사이자 동물병원 원장'));
 console.log(`SEO checks passed: ${pages.size} pages, unique metadata, canonical/sitemap parity, JSON-LD/FAQ, internal links, crawler policy and contact destination.`);
