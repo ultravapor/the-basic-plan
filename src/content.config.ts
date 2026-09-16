@@ -18,6 +18,14 @@ const posts = defineCollection({
       .array(z.object({ q: z.string(), a: z.string() }))
       .default([]),
     draft: z.boolean().default(false),
+
+    // ── 내부 분석용 메타데이터(사용자 비노출). 어떤 글이 실제 문의로 이어지는지 추적하기 위한 태그.
+    // 퍼널 단계: P1 발견 · P2 관심/비교 · P3 문의 · P4 응대 · P5 예약
+    funnel: z.array(z.enum(['P1', 'P2', 'P3', 'P4', 'P5'])).default([]),
+    // 제거하려는 의심: H1 해결책 · H2 상품 · H3 판매자 · H4 증거 · H5 자기판단 · H6 구매 후 위험
+    doubt: z.array(z.enum(['H1', 'H2', 'H3', 'H4', 'H5', 'H6'])).default([]),
+    // 이 글이 검증하는 문제 가설(예: agency-trust, call-conversion, blog-effectiveness, positioning, ai-search)
+    hypothesis: z.array(z.string()).default([]),
   }),
 });
 
