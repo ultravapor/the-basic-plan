@@ -35,6 +35,7 @@ export function isPublished(pubDate: Date): boolean {
 
 export const NAV = [
   { href: '/', label: '홈' },
+  { href: '/checkup/', label: '점검' },
   { href: '/posts/', label: '인사이트' },
   { href: '/about/', label: '소개' },
   { href: '/#contact', label: '문의' },
