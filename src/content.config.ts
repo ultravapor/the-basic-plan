@@ -26,6 +26,23 @@ const posts = defineCollection({
     doubt: z.array(z.enum(['H1', 'H2', 'H3', 'H4', 'H5', 'H6'])).default([]),
     // 이 글이 검증하는 문제 가설(예: agency-trust, call-conversion, blog-effectiveness, positioning, ai-search)
     hypothesis: z.array(z.string()).default([]),
+
+    // ── 콘텐츠 기획 메타데이터 (docs/content-planning-rules.md). 비노출, 전략 유지용.
+    // 카테고리: A 마케팅 누수 진단 · B 환자의 의사결정 · C 채널과 전환 구조 · D 성과와 대행사 검증 · E AI 검색과 변화
+    category: z.enum(['A', 'B', 'C', 'D', 'E']).optional(),
+    // 팬 생성 단계
+    fanStage: z.enum(['discovery', 'identification', 'participation', 'propagation']).optional(),
+    // 필수 3종: 읽기 전 믿음 / 읽은 뒤 새 판단 / 이 관점을 받아들인 독자의 자기 인식
+    oldBelief: z.string().optional(),
+    newBelief: z.string().optional(),
+    identityMessage: z.string().optional(),
+    // 선택: 문제 정의 · 독자 행동 · 이전/다음 사고 단계 글(slug) · 주요 CTA · 필요한 증거
+    coreProblem: z.string().optional(),
+    readerAction: z.string().optional(),
+    prevArticle: z.string().optional(),
+    nextArticle: z.string().optional(),
+    primaryCta: z.string().optional(),
+    evidenceRequired: z.string().optional(),
   }),
 });
 

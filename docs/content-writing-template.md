@@ -5,6 +5,11 @@
 > 동일 템플릿을 기계적으로 강제하지는 않되, 아래를 기본값으로 삼는다.
 
 ## 0. 쓰기 전에 정의한다 (프론트매터/메모)
+> 주제·순서·내부링크는 [content-planning-rules.md](content-planning-rules.md)를 먼저 적용한다.
+- **인식 변화(필수)**: `old_belief`(읽기 전 믿음) → `new_belief`(읽은 뒤 새 판단). 글 하나 = 하나의 변화.
+- **정체성 메시지(필수)**: `identity_message` — 이 관점을 받아들인 독자가 자신을 어떤 원장으로 느끼는가.
+- **카테고리·팬 단계**: `category`(A~E) / `fanStage`(discovery~propagation).
+- **이전/다음 사고단계 글**: `prevArticle` / `nextArticle`(slug) — 내부링크는 사고의 순서로.
 - **검증하는 문제 가설**: 이 글은 어떤 Pain 가설을 시험하는가? (hypothesis 태그)
 - **제거할 의심 하나**: H1 해결책 / H2 상품 / H3 판매자 / H4 증거 / H5 자기판단 / H6 구매후 (doubt 태그)
 - **퍼널 위치**: P1 발견 / P2 관심·비교 / P3 문의 / P4 응대 / P5 예약 (funnel 태그)
