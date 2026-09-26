@@ -7,3 +7,4 @@ dist/
 .staging/
 .env
 .env.*
+naver-export/

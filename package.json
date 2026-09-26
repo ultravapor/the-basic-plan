@@ -12,6 +12,7 @@
     "naver:list": "node scripts/naver-import.mjs list",
     "naver:scrape": "node scripts/naver-import.mjs scrape",
     "naver:rewrite": "node scripts/naver-rewrite.mjs",
+    "naver:export": "node scripts/naver-export.mjs",
     "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
