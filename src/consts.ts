@@ -37,6 +37,7 @@ export const NAV = [
   { href: '/', label: '홈' },
   { href: '/checkup/', label: '점검' },
   { href: '/truths/', label: '6가지 진실' },
+  { href: '/guide/', label: '가이드' },
   { href: '/posts/', label: '인사이트' },
   { href: '/about/', label: '소개' },
   { href: '/#contact', label: '문의' },
