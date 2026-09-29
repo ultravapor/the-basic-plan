@@ -38,6 +38,14 @@
 - what-happens-in-the-checkup [H2·H3] (상품의 진실)
 - (실사실 페이지: /about/ 판매자의 진실, /checkup/ — 글 아님)
 
+### 카테고리 B 예약 큐 (환자의 의사결정, 2026-09-29 작성 · 9/30~10/4 예약)
+- did-the-patient-leave-because-of-price [H1] 가격 문의 이탈 (9/27)
+- patients-dont-visit-to-study [H1] 공부하러 오지 않는다 (9/30)
+- what-patients-check-in-reviews [H4] 후기를 읽는 진짜 이유 (10/1)
+- why-patients-dont-book-after-consult [H1] 상담 후 예약 안 하는 이유 (10/2)
+- patients-avoid-wrong-choice [H1] 틀리지 않을 병원을 고른다 (10/3)
+- first-three-seconds-homepage [H1] 첫 3초의 무언의 질문 (10/4)
+
 ## 베이스 4 — 팬덤·세계관 베이스 (6가지 진실 belief 시리즈)
 9/18~9/24. 관점 전환 에세이. 허브: /truths/.
 - marketing-truth-1-more-isnt-the-answer — 유입이 늘 답은 아니다 [H1]
