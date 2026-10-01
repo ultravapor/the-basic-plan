@@ -1,7 +1,8 @@
 ---
 // 광고(Paid) 전용 랜딩. 검색 유입용 페이지가 아니므로 noindex + 사이트맵 제외(src/noindex-paths.mjs).
 // 홈의 역할(검색·AI 노출 → 브랜드 탐색 → 신뢰)과 달리, 여기는 광고 → 문제 인식 → 설득 → 무료 진단 신청.
-// 이미지 0개, 클라이언트 JS는 LandingAnalytics의 작은 인라인 스크립트뿐(이 페이지에만 출력).
+// 이미지 0개. 측정 스크립트(LandingAnalytics·tracking.ts, Meta Pixel)는 이 페이지에만 출력된다.
+// CTA 위치(data-lp-cta): hero / middle / bottom / sticky(모바일 하단 고정)
 import BaseLayout from '../layouts/BaseLayout.astro';
 import DiagnosisCta from '../components/landing/DiagnosisCta.astro';
 import LandingAnalytics from '../components/landing/LandingAnalytics.astro';
@@ -64,7 +65,7 @@ const offer = ['현재 잘하고 있는 부분', '가장 큰 병목', '우선 �
     <div class="cta-row">
       <DiagnosisCta placement="hero" />
     </div>
-    <p class="lp-meta">비용 무료 · 질문 5개 · 영업일 2~3일 내 이메일 회신</p>
+    <p class="lp-meta">비용 무료 · 계약을 전제로 하지 않는 진단</p>
   </section>
 
   <!-- 2. PROBLEM -->
@@ -134,6 +135,9 @@ const offer = ['현재 잘하고 있는 부분', '가장 큰 병목', '우선 �
     <ul class="findings">
       {findings.map((f, i) => <li class:list={{ key: i === findings.length - 1 }}>{f}</li>)}
     </ul>
+    <div class="cta-row mid-cta">
+      <DiagnosisCta placement="middle" />
+    </div>
   </section>
 
   <!-- 6. TRUST -->
@@ -163,10 +167,10 @@ const offer = ['현재 잘하고 있는 부분', '가장 큰 병목', '우선 �
     </div>
     <div class="cta-band lp-band">
       <div>
-        <strong>질문 5개에 답하면, 진단 결과를 이메일로 보내드립니다.</strong>
-        <span>비용은 무료입니다. 영업일 기준 2~3일 내 회신드립니다.</span>
+        <strong>신청서를 작성해주시면, 진단 결과를 정리해 보내드립니다.</strong>
+        <span>비용은 무료입니다.</span>
       </div>
-      <DiagnosisCta placement="offer" />
+      <DiagnosisCta placement="bottom" />
     </div>
   </section>
 
@@ -184,6 +188,7 @@ const offer = ['현재 잘하고 있는 부분', '가장 큰 병목', '우선 �
     margin: 0 0 12px;
   }
   .lp-meta { margin: 14px 0 0; font-size: .86rem; color: var(--muted); }
+  .mid-cta { margin-top: 22px; }
   .m-br { display: none; }
 
   .lp-text { color: var(--muted); max-width: 640px; font-size: 1.02rem; }
