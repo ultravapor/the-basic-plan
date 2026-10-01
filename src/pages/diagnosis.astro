@@ -1,0 +1,281 @@
+---
+// 광고(Paid) 전용 랜딩. 검색 유입용 페이지가 아니므로 noindex + 사이트맵 제외(src/noindex-paths.mjs).
+// 홈의 역할(검색·AI 노출 → 브랜드 탐색 → 신뢰)과 달리, 여기는 광고 → 문제 인식 → 설득 → 무료 진단 신청.
+// 이미지 0개, 클라이언트 JS는 LandingAnalytics의 작은 인라인 스크립트뿐(이 페이지에만 출력).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DiagnosisCta from '../components/landing/DiagnosisCta.astro';
+import LandingAnalytics from '../components/landing/LandingAnalytics.astro';
+
+const stages = ['발견', '탐색', '신뢰', '문의', '예약'];
+
+const channels = [
+  { when: '과거', what: '네이버 검색' },
+  { when: '이후', what: '유튜브 · SNS' },
+  { when: '지금', what: 'AI 검색' },
+];
+
+// 병원마다 막힌 곳이 다르다: stuck = stages 인덱스
+const cases = [
+  { name: 'A 병원', stuck: 0, text: '애초에 발견되지 않습니다.', first: '검색·지도에서 우리 병원이 보이는지' },
+  { name: 'B 병원', stuck: 1, text: '검색 노출은 충분하지만 클릭되지 않습니다.', first: '검색 결과에 보이는 제목·소개·후기' },
+  { name: 'C 병원', stuck: 2, text: '환자가 병원을 검색하지만 선택할 이유를 찾지 못합니다.', first: '다른 병원 대신 우리를 고를 근거가 있는지' },
+  { name: 'D 병원', stuck: 4, text: '문의는 들어오지만 예약으로 이어지지 않습니다.', first: '문의 응대와 예약 과정' },
+];
+
+const areas = [
+  { ko: '발견', en: 'Discovery', q: '환자가 검색·지도·AI에서 우리 병원을 찾을 수 있는가' },
+  { ko: '탐색', en: 'Consideration', q: '찾은 뒤 더 읽어볼 이유가 있는가' },
+  { ko: '신뢰', en: 'Trust', q: '다른 병원 대신 우리를 고를 근거가 보이는가' },
+  { ko: '전환', en: 'Conversion', q: '문의·예약으로 넘어가는 길이 막혀 있지 않은가' },
+  { ko: '측정', en: 'Measurement', q: '어디서 환자가 빠지는지 숫자로 확인되고 있는가' },
+];
+
+const findings = [
+  '무엇을 잘하고 있는지',
+  '어디에서 문제가 생기고 있는지',
+  '무엇을 먼저 개선해야 하는지',
+  '무엇은 지금 하지 않아도 되는지',
+];
+
+const notPromised = ['신규환자 증가', '검색 상위노출', 'AI 노출'];
+const shown = ['무엇을 확인했는지', '왜 그렇게 판단했는지', '무엇을 먼저 바꿔야 하는지'];
+
+const offer = ['현재 잘하고 있는 부분', '가장 큰 병목', '우선 개선할 부분', '지금 하지 않아도 되는 마케팅'];
+---
+
+<BaseLayout
+  title="AI 마케팅, 지금 해야 할까요? 병원 마케팅 무료 진단"
+  description="AI 시대, 우리 병원도 AI 마케팅을 해야 할지 고민이라면 먼저 확인하세요. 환자가 발견부터 예약까지 어디에서 멈추는지 찾아, 지금 해야 할 것과 하지 않아도 될 것을 무료로 정리해드립니다."
+  path="/diagnosis/"
+  noindex
+  hideNav
+>
+  <LandingAnalytics slot="head" />
+
+  <!-- 1. HERO -->
+  <section class="hero lp-hero">
+    <span class="eyebrow">병원 마케팅 무료 진단</span>
+    <h1>AI 시대,<br />우리 병원도 AI 마케팅을<br class="m-br" /> 해야 할까요?</h1>
+    <p class="lp-answer">AI부터 시작할 필요는 없습니다.</p>
+    <p class="lead">
+      지금 우리 병원에 필요한 것이 AI인지, 블로그인지, 홈페이지인지,
+      아니면 전혀 다른 문제인지부터 확인해야 합니다.
+    </p>
+    <div class="cta-row">
+      <DiagnosisCta placement="hero" />
+    </div>
+    <p class="lp-meta">비용 무료 · 질문 5개 · 영업일 2~3일 내 이메일 회신</p>
+  </section>
+
+  <!-- 2. PROBLEM -->
+  <section aria-labelledby="lp-problem">
+    <h2 id="lp-problem" class="section-title">새로운 마케팅 채널은 계속 나옵니다</h2>
+    <ol class="timeline">
+      {channels.map((c) => (
+        <li><span class="tl-when">{c.when}</span><span class="tl-what">{c.what}</span></li>
+      ))}
+    </ol>
+    <p class="lp-text">
+      과거에는 네이버 검색이 중요했고, 유튜브와 SNS가 등장했고, 지금은 AI 검색이 등장했습니다.
+    </p>
+    <p class="lp-strong">하지만 새로운 채널이 나올 때마다 모든 병원이 그것을 해야 하는 것은 아닙니다.</p>
+  </section>
+
+  <!-- 3. NEW FRAME -->
+  <section aria-labelledby="lp-frame">
+    <h2 id="lp-frame" class="section-title">병원 마케팅의 목적은 ‘노출’ 자체가 아닙니다</h2>
+    <p class="lp-text">환자가 병원을 발견한 뒤, 예약까지 이동하도록 만드는 것입니다.</p>
+    <ol class="flow" aria-label="환자의 이동 과정">
+      {stages.map((s) => <li><span>{s}</span></li>)}
+    </ol>
+    <p class="lp-text">
+      AI, 네이버, Google, YouTube, SNS는 모두 이 과정의 일부입니다.
+      어느 채널이 중요한지는 우리 병원이 이 흐름의 어디에서 막혀 있느냐에 따라 달라집니다.
+    </p>
+  </section>
+
+  <!-- 4. DIFFERENT PROBLEMS -->
+  <section aria-labelledby="lp-cases">
+    <h2 id="lp-cases" class="section-title">병원마다 막혀 있는 곳이 다릅니다</h2>
+    <div class="cases">
+      {cases.map((c) => (
+        <div class="case">
+          <div class="case-head">
+            <h3>{c.name}</h3>
+            <span class="case-tag">{stages[c.stuck]}에서 막힘</span>
+          </div>
+          <div class="mini-flow" aria-hidden="true">
+            {stages.map((s, i) => (
+              <span class:list={['seg', { pass: i < c.stuck, stuck: i === c.stuck }]}>{s}</span>
+            ))}
+          </div>
+          <p class="case-text">{c.text}</p>
+          <p class="case-first">먼저 볼 곳: {c.first}</p>
+        </div>
+      ))}
+    </div>
+    <p class="lp-strong">
+      그래서 무조건 새로운 마케팅을 더하기 전에, 지금의 병목을 찾는 것이 먼저입니다.
+    </p>
+  </section>
+
+  <!-- 5. DIAGNOSIS -->
+  <section aria-labelledby="lp-areas">
+    <h2 id="lp-areas" class="section-title">5가지 영역으로 지금의 마케팅 구조를 점검합니다</h2>
+    <ol class="areas">
+      {areas.map((a) => (
+        <li>
+          <span class="area-name">{a.ko}<small>{a.en}</small></span>
+          <span class="area-q">{a.q}</span>
+        </li>
+      ))}
+    </ol>
+    <p class="lp-text">목적은 점수를 매기는 것이 아니라, 다음을 찾는 것입니다.</p>
+    <ul class="findings">
+      {findings.map((f, i) => <li class:list={{ key: i === findings.length - 1 }}>{f}</li>)}
+    </ul>
+  </section>
+
+  <!-- 6. TRUST -->
+  <section aria-labelledby="lp-trust">
+    <h2 id="lp-trust" class="section-title">과장된 성과를 약속하지 않습니다</h2>
+    <div class="trust">
+      <div class="trust-col no">
+        <h3>무조건 보장한다고 말하지 않는 것</h3>
+        <ul>{notPromised.map((t) => <li>{t}</li>)}</ul>
+      </div>
+      <div class="trust-col yes">
+        <h3>대신 투명하게 보여드리는 것</h3>
+        <ul>{shown.map((t) => <li>{t}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. OFFER -->
+  <section aria-labelledby="lp-offer">
+    <h2 id="lp-offer" class="section-title">우리 병원의 현재 마케팅 상태를 한번 확인해보세요</h2>
+    <div class="offer">
+      <p class="lp-text">무료 진단으로 다음을 정리해드립니다.</p>
+      <ul class="offer-list">
+        {offer.map((o) => <li>{o}</li>)}
+      </ul>
+      <p class="offer-note">상담 전화로 영업하지 않습니다. 진단 후 계약은 필수가 아닙니다.</p>
+    </div>
+    <div class="cta-band lp-band">
+      <div>
+        <strong>질문 5개에 답하면, 진단 결과를 이메일로 보내드립니다.</strong>
+        <span>비용은 무료입니다. 영업일 기준 2~3일 내 회신드립니다.</span>
+      </div>
+      <DiagnosisCta placement="offer" />
+    </div>
+  </section>
+
+  <!-- 모바일 하단 고정 CTA (CSS만 사용) -->
+  <div class="sticky-cta">
+    <DiagnosisCta placement="sticky" block />
+  </div>
+</BaseLayout>
+
+<style>
+  .lp-hero { padding: 44px 0 24px; }
+  .lp-hero h1 { font-size: clamp(1.75rem, 5.4vw, 2.5rem); }
+  .lp-answer {
+    font-size: clamp(1.2rem, 3.4vw, 1.5rem); font-weight: 800; color: var(--accent);
+    margin: 0 0 12px;
+  }
+  .lp-meta { margin: 14px 0 0; font-size: .86rem; color: var(--muted); }
+  .m-br { display: none; }
+
+  .lp-text { color: var(--muted); max-width: 640px; font-size: 1.02rem; }
+  .lp-strong { font-weight: 700; font-size: 1.08rem; max-width: 640px; margin-top: 18px; }
+
+  /* 2. 채널 타임라인 */
+  .timeline { list-style: none; padding: 0; margin: 6px 0 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .timeline li {
+    display: flex; flex-direction: column; gap: 2px; min-width: 130px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px;
+  }
+  .timeline li:last-child { border-color: var(--accent); }
+  .tl-when { font-size: .78rem; font-weight: 700; color: var(--muted); }
+  .tl-what { font-weight: 700; }
+
+  /* 3. 5단계 흐름 */
+  .flow { list-style: none; padding: 0; margin: 18px 0 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .flow li { display: flex; align-items: center; }
+  .flow li span {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+    padding: 9px 18px; font-weight: 700;
+  }
+  /* 화살표를 각 단계 뒤에 붙여, 줄바꿈 시 화살표가 줄 끝에 오도록 */
+  .flow li:not(:last-child)::after { content: '→'; color: var(--accent); margin-left: 8px; font-weight: 700; }
+  .flow li:last-child span { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+  /* 4. 병원별 병목 */
+  .cases { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px; }
+  .case { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+  .case-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .case-head h3 { margin: 0; font-size: 1.05rem; }
+  .case-tag {
+    font-size: .75rem; font-weight: 700; color: var(--accent);
+    border: 1px solid var(--accent); border-radius: 999px; padding: 2px 9px; white-space: nowrap;
+  }
+  .mini-flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; margin: 12px 0 10px; }
+  .seg {
+    font-size: .7rem; text-align: center; padding: 4px 0; border-radius: 6px;
+    background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+  }
+  .seg.pass { background: color-mix(in srgb, var(--accent) 14%, var(--bg)); color: var(--text); border-color: transparent; }
+  .seg.stuck { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+  .case-text { margin: 0 0 6px; font-weight: 600; }
+  .case-first { margin: 0; font-size: .86rem; color: var(--muted); }
+
+  /* 5. 점검 영역 */
+  .areas { list-style: none; padding: 0; margin: 8px 0 22px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .areas li { display: grid; grid-template-columns: 170px 1fr; gap: 14px; padding: 13px 18px; align-items: center; }
+  .areas li + li { border-top: 1px solid var(--border); }
+  .area-name { font-weight: 800; color: var(--accent); }
+  .area-name small { display: block; font-size: .72rem; font-weight: 600; color: var(--muted); letter-spacing: .02em; }
+  .area-q { font-size: .96rem; }
+  .findings { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 640px; }
+  .findings li { position: relative; padding: 10px 12px 10px 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .findings li::before { content: '✓'; position: absolute; left: 12px; color: var(--accent); font-weight: 800; }
+  .findings li.key { border-color: var(--accent); font-weight: 700; }
+
+  /* 6. 신뢰 */
+  .trust { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .trust-col { border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 22px; background: var(--surface); }
+  .trust-col h3 { margin: 0 0 10px; font-size: 1rem; }
+  .trust-col ul { list-style: none; margin: 0; padding: 0; }
+  .trust-col li { position: relative; padding: 7px 0 7px 26px; }
+  .trust-col.no li { color: var(--muted); }
+  .trust-col.no li::before { content: '✕'; position: absolute; left: 2px; color: var(--muted); font-weight: 700; }
+  .trust-col.yes { border-top: 3px solid var(--accent); }
+  .trust-col.yes li::before { content: '✓'; position: absolute; left: 2px; color: var(--accent); font-weight: 800; }
+
+  /* 7. 오퍼 */
+  .offer { border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 16px; }
+  .offer .lp-text { margin-bottom: 8px; }
+  .offer-list { margin: 0; padding-left: 20px; }
+  .offer-list li { margin: 6px 0; font-weight: 600; }
+  .offer-note { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--border); color: var(--muted); font-size: .9rem; }
+
+  /* 모바일 하단 고정 CTA: 데스크톱에서는 숨김 */
+  .sticky-cta { display: none; }
+
+  @media (max-width: 640px) {
+    .lp-hero { padding: 28px 0 16px; }
+    .m-br { display: inline; }
+    .cases, .findings, .trust { grid-template-columns: 1fr; }
+    .areas li { grid-template-columns: 1fr; gap: 2px; }
+    .flow li span { padding: 8px 14px; }
+    .lp-band { flex-direction: column; align-items: stretch; }
+    .sticky-cta {
+      display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(8px); border-top: 1px solid var(--border);
+    }
+    /* 고정 CTA 높이만큼 페이지 맨 아래(푸터 뒤)에 여백. 이 CSS는 /diagnosis/에서만 로드됨 */
+    :global(body) { padding-bottom: calc(82px + env(safe-area-inset-bottom)); }
+  }
+</style>

@@ -2,13 +2,15 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import remarkBreaks from 'remark-breaks';
+import { NOINDEX_PATHS } from './src/noindex-paths.mjs';
 
 // 배포 도메인이 정해지면 여기만 바꾸면 됩니다 (예: https://thebasicplan.co.kr)
 // 지금은 무료 배포용 임시 주소. sitemap/canonical/JSON-LD가 전부 이 값을 씁니다.
 export default defineConfig({
   site: 'https://the-basic-plan.vercel.app',
   trailingSlash: 'always',
-  integrations: [sitemap()],
+  // 광고 랜딩 등 noindex 페이지는 사이트맵에서 제외 (src/noindex-paths.mjs)
+  integrations: [sitemap({ filter: (page) => !NOINDEX_PATHS.includes(new URL(page).pathname) })],
   markdown: {
     // 본문에서 한 줄 = 한 문장으로 쓰면, 단일 줄바꿈이 실제 <br> 로 렌더링됩니다(가독성).
     remarkPlugins: [remarkBreaks],

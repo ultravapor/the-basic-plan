@@ -1,0 +1,31 @@
+---
+// 광고 랜딩 CTA. 목적지·문구는 config.ts에서 관리한다.
+// 나중에 자체 신청 폼으로 바꿀 때 이 컴포넌트만 교체하면 되고,
+// data-lp-cta(배치 위치) 속성만 유지하면 LandingAnalytics의 클릭 측정이 그대로 동작한다.
+import { LANDING } from './config';
+
+interface Props {
+  /** 측정용 배치 위치 이름 (hero / offer / sticky 등) */
+  placement: string;
+  label?: string;
+  /** 모바일 하단 고정 바처럼 가로를 꽉 채울 때 */
+  block?: boolean;
+}
+
+const { placement, label = LANDING.ctaLabel, block = false } = Astro.props;
+const href = LANDING.ctaHref;
+const external = /^https?:\/\//.test(href);
+---
+
+<a
+  class:list={['btn', 'primary', 'lp-cta', { block }]}
+  href={href}
+  data-lp-cta={placement}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+>{label}</a>
+
+<style>
+  .lp-cta { font-size: 1.05rem; padding: 15px 26px; text-align: center; }
+  .lp-cta.block { display: block; width: 100%; }
+</style>

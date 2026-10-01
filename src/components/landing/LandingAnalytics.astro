@@ -1,0 +1,73 @@
+---
+// 광고 랜딩 전용 측정. BaseLayout의 head 슬롯에 넣어 /diagnosis/에서만 출력된다.
+// - 기존 Vercel Analytics는 BaseLayout에 이미 있으므로 다시 설치하지 않는다.
+// - GA4·Meta Pixel은 config.ts에 ID를 넣을 때만 출력된다(비어 있으면 0바이트).
+// - 이벤트: lp_view(진입), lp_cta_click(CTA 클릭). 둘 다 utm_source/medium/campaign/content/term을
+//   함께 보내므로 캠페인·소재(utm_content)별로 진입 → 클릭을 나눠 볼 수 있다.
+import { LANDING } from './config';
+
+const { ga4Id, metaPixelId } = LANDING;
+---
+
+{ga4Id && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}></script>
+    <script is:inline define:vars={{ ga4Id }}>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', ga4Id);
+    </script>
+  </>
+)}
+
+{metaPixelId && (
+  <script is:inline define:vars={{ metaPixelId }}>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', metaPixelId);
+    window.fbq('track', 'PageView');
+  </script>
+)}
+
+<script is:inline>
+  (function () {
+    // 1) 광고 파라미터 수집: URL에 있으면 우선, 없으면(새로고침 등) 세션에 저장된 값 사용
+    var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var ctx = {};
+    try {
+      var q = new URLSearchParams(location.search);
+      var saved = JSON.parse(sessionStorage.getItem('lp_attr') || '{}');
+      var fresh = KEYS.some(function (k) { return q.get(k); });
+      KEYS.forEach(function (k) {
+        var v = fresh ? q.get(k) : saved[k];
+        if (v) ctx[k] = String(v).slice(0, 100);
+      });
+      // 클릭 ID는 값 자체(개인 식별 가능)를 보내지 않고 어느 광고 플랫폼인지만 남긴다
+      if (q.get('fbclid')) ctx.click_from = 'meta';
+      else if (q.get('gclid')) ctx.click_from = 'google';
+      else if (!fresh && saved.click_from) ctx.click_from = saved.click_from;
+      sessionStorage.setItem('lp_attr', JSON.stringify(ctx));
+    } catch (e) {}
+
+    // 2) Vercel Analytics는 지연 로드되므로, Vercel과 같은 대기열 방식으로 먼저 받아둔다
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push([].slice.call(arguments)); };
+
+    function track(name, extra, toAdPlatforms) {
+      var data = { page: 'diagnosis' };
+      for (var k in ctx) data[k] = ctx[k];
+      for (var j in extra || {}) data[j] = extra[j];
+      try { window.va('event', { name: name, data: data }); } catch (e) {}
+      if (!toAdPlatforms) return; // GA4·픽셀은 자체 페이지뷰가 있으므로 진입 이벤트는 중복 전송하지 않음
+      try { if (typeof window.gtag === 'function') window.gtag('event', name, data); } catch (e) {}
+      try { if (typeof window.fbq === 'function') window.fbq('trackCustom', name, data); } catch (e) {}
+    }
+
+    track('lp_view', null, false);
+
+    // 3) CTA 클릭: 위임 방식이라 CTA가 몇 개든, 나중에 교체돼도 data-lp-cta만 있으면 잡힌다
+    document.addEventListener('click', function (e) {
+      var el = e.target && e.target.closest ? e.target.closest('[data-lp-cta]') : null;
+      if (el) track('lp_cta_click', { placement: el.getAttribute('data-lp-cta') || '' }, true);
+    });
+  })();
+</script>

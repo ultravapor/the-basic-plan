@@ -3,6 +3,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { load } from 'cheerio';
+import { NOINDEX_PATHS } from '../src/noindex-paths.mjs';
 
 const site = 'https://the-basic-plan.vercel.app';
 const dist = new URL('../dist/', import.meta.url);
@@ -21,7 +22,9 @@ for (const file of walk(root).filter(f => f.endsWith('.html'))) {
   assert.equal($('link[rel=canonical]').length, 1, `${path}: one canonical`);
   assert.equal($('link[rel=canonical]').attr('href'), canonical);
   assert.equal($('meta[property="og:url"]').attr('content'), canonical);
-  assert(!$('meta[name=robots]').attr('content').includes('noindex'), `${path}: indexable`);
+  // 광고 랜딩 등 목록에 있는 페이지만 noindex, 나머지는 전부 색인 가능해야 한다
+  const isNoindex = $('meta[name=robots]').attr('content').includes('noindex');
+  assert.equal(isNoindex, NOINDEX_PATHS.includes(path), `${path}: ${NOINDEX_PATHS.includes(path) ? 'must be noindex' : 'indexable'}`);
   const title = $('title').text();
   const description = $('meta[name=description]').attr('content');
   assert(title && !titles.has(title), `${path}: unique title`);
@@ -57,7 +60,12 @@ for (const [path, $] of pages) {
   }
 }
 const sitemap = load(readFileSync(new URL('sitemap-0.xml', dist), 'utf8'), { xmlMode: true });
-assert.deepEqual(new Set(sitemap('loc').toArray().map(e => sitemap(e).text())), new Set([...pages.keys()].map(p => site + p)));
+for (const p of NOINDEX_PATHS) assert(pages.has(p), `noindex-paths: ${p} 페이지가 없음(목록 정리 필요)`);
+// 사이트맵 = 색인 대상 페이지 전부, noindex 페이지는 제외
+assert.deepEqual(
+  new Set(sitemap('loc').toArray().map(e => sitemap(e).text())),
+  new Set([...pages.keys()].filter(p => !NOINDEX_PATHS.includes(p)).map(p => site + p)),
+);
 const robots = readFileSync(new URL('robots.txt', dist), 'utf8');
 assert.match(robots, /User-agent: OAI-SearchBot\s+Allow: \//);
 assert.match(robots, /Sitemap: https:\/\/the-basic-plan\.vercel\.app\/sitemap-index.xml/);

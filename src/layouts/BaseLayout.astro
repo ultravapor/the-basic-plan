@@ -11,6 +11,10 @@ interface Props {
   ogType?: 'website' | 'article';
   /** 페이지 고유 JSON-LD (Article, FAQPage 등). 배열로 여러 개 가능 */
   jsonLd?: Record<string, any>[];
+  /** 광고 랜딩 등 검색 색인에서 뺄 페이지만 true. 기본 false = 기존 페이지 출력 그대로 */
+  noindex?: boolean;
+  /** 광고 랜딩용: 헤더의 메뉴를 숨기고 브랜드만 남긴다(이탈 경로 축소). 기본 false */
+  hideNav?: boolean;
 }
 
 const {
@@ -19,6 +23,8 @@ const {
   path = Astro.url.pathname,
   ogType = 'website',
   jsonLd = [],
+  noindex = false,
+  hideNav = false,
 } = Astro.props;
 
 const canonicalUrl = new URL(path, Astro.site);
@@ -72,7 +78,7 @@ const website = {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
 
     <!-- 검색엔진 소유확인 -->
     {SITE.verification.naver && <meta name="naver-site-verification" content={SITE.verification.naver} />}
@@ -94,14 +100,18 @@ const website = {
     <script type="application/ld+json" set:html={JSON.stringify(website)} />
     <!-- 페이지 고유 구조화 데이터 -->
     {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
+    {/* 특정 페이지 전용 head 요소(예: 광고 랜딩의 픽셀). 비어 있으면 아무것도 출력하지 않음 */}
+    <slot name="head" />
   </head>
   <body>
     <header class="site-header">
       <div class="wrap">
         <a class="brand" href="/">{SITE.nameKo}<span>{SITE.nameEn}</span></a>
-        <nav class="nav" aria-label="주요 메뉴">
-          {NAV.map((n) => <a href={n.href}>{n.label}</a>)}
-        </nav>
+        {!hideNav && (
+          <nav class="nav" aria-label="주요 메뉴">
+            {NAV.map((n) => <a href={n.href}>{n.label}</a>)}
+          </nav>
+        )}
       </div>
     </header>
 
