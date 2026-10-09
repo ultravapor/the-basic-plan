@@ -40,4 +40,4 @@ Allow: /
 User-agent: Claude-User
 Allow: /
 
-Sitemap: https://thebasicplan.co.kr/sitemap-index.xml
+Sitemap: https://www.thebasicplan.co.kr/sitemap-index.xml

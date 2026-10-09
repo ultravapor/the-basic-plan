@@ -194,7 +194,7 @@ git pull --ff-only → git add → git commit(올바른 author 이메일) → gi
 
 ## A-1. 더베이직플랜 (병원 마케팅 GEO 사이트) — 사용자가 "더베이직플랜"이라고 지목할 때만 로드
 
-- **도메인/비즈니스:** 병원(비급여 원장) 대상 네이버 블로그·검색 AEO/GEO 마케팅. 사이트는 https://thebasicplan.co.kr
+- **도메인/비즈니스:** 병원(비급여 원장) 대상 네이버 블로그·검색 AEO/GEO 마케팅. 사이트는 https://www.thebasicplan.co.kr
 - **타겟(ICP):** 이미 돈 쓰는 비급여 원장, 여러 번 데여 통제감을 원함. "먼저 진단해주는 독립적 시선" 포지션.
 - **상위 전략 문서(작업 전 먼저 읽기):** `docs/master-strategy.md` → `docs/content-planning-rules.md` → `docs/content-writing-template.md`.
 - **스택·레포:** Astro 정적사이트, 레포 `ultravapor/the-basic-plan`, Vercel(Hobby) 자동배포.

@@ -4,7 +4,7 @@
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "the-basic-plan.vercel.app" }],
-      "destination": "https://thebasicplan.co.kr/:path*",
+      "destination": "https://www.thebasicplan.co.kr/:path*",
       "permanent": true
     }
   ]

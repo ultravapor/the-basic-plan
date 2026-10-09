@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { load } from 'cheerio';
 import { NOINDEX_PATHS } from '../src/noindex-paths.mjs';
 
-const site = 'https://thebasicplan.co.kr';
+const site = 'https://www.thebasicplan.co.kr';
 const dist = new URL('../dist/', import.meta.url);
 const root = fileURLToPath(dist);
 function walk(dir) {
