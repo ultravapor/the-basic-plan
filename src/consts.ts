@@ -22,7 +22,8 @@ export const SITE = {
   locale: 'ko_KR',
   // 검색엔진 소유확인 코드 (HTML 태그 방식). 값이 있으면 <head>에 meta로 출력됩니다.
   verification: {
-    naver: '5d6f08223ffd38a3bcaa4bf182b439a9f66a9e0f',
+    // 여러 개 가능: [새 도메인 www.thebasicplan.co.kr, 옛 the-basic-plan.vercel.app]
+    naver: ['4e4002c64a4c429a7bfc6cc1be28b94207186ae4', '5d6f08223ffd38a3bcaa4bf182b439a9f66a9e0f'],
     google: 'R85T4BMqcM1J9OfbA7gMWTNUs3Pksc90KKMv2eVyxVw',
   },
 } as const;
