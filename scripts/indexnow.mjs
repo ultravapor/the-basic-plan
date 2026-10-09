@@ -15,7 +15,7 @@ import { dirname, join } from 'node:path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 
-const HOST = 'the-basic-plan.vercel.app';
+const HOST = 'thebasicplan.co.kr';
 const KEY = '3f8a860ab113a389903e6b88951bf772';
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
 

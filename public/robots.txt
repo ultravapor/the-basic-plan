@@ -40,4 +40,4 @@ Allow: /
 User-agent: Claude-User
 Allow: /
 
-Sitemap: https://the-basic-plan.vercel.app/sitemap-index.xml
+Sitemap: https://thebasicplan.co.kr/sitemap-index.xml

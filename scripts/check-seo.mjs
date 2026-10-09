@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { load } from 'cheerio';
 import { NOINDEX_PATHS } from '../src/noindex-paths.mjs';
 
-const site = 'https://the-basic-plan.vercel.app';
+const site = 'https://thebasicplan.co.kr';
 const dist = new URL('../dist/', import.meta.url);
 const root = fileURLToPath(dist);
 function walk(dir) {
@@ -68,7 +68,7 @@ assert.deepEqual(
 );
 const robots = readFileSync(new URL('robots.txt', dist), 'utf8');
 assert.match(robots, /User-agent: OAI-SearchBot\s+Allow: \//);
-assert.match(robots, /Sitemap: https:\/\/the-basic-plan\.vercel\.app\/sitemap-index.xml/);
+assert.ok(robots.includes(`Sitemap: ${site}/sitemap-index.xml`), "robots.txt sitemap must use site URL");
 const llms = readFileSync(new URL('llms.txt', dist), 'utf8');
 for (const [, url] of llms.matchAll(/\]\((https:[^)]+)\)/g)) assert(pages.has(new URL(url).pathname), `llms.txt: missing ${url}`);
 const home = pages.get('/');

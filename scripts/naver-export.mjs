@@ -19,7 +19,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const POSTS = join(ROOT, 'src', 'content', 'posts');
 const OUTDIR = join(ROOT, 'naver-export');
-const SITE = 'https://the-basic-plan.vercel.app';
+const SITE = 'https://thebasicplan.co.kr';
 
 function parse(raw) {
   const m = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);

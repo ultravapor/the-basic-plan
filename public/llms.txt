@@ -5,19 +5,19 @@
 대표: 강병문 — 수의사·동물병원 원장 출신 마케터. 사람을 진료하는 병·의원의 의사·원장 경력을 뜻하지 않습니다.
 
 ## 핵심 페이지
-- [홈](https://the-basic-plan.vercel.app/): 점검부터 시작하는 병원 마케팅
-- [유입·전환 점검](https://the-basic-plan.vercel.app/checkup/): 무료 진단 리포트(질문 5개)로 시작하는 MVO. 어디서 새는지 확인
-- [병원 마케팅의 6가지 진실](https://the-basic-plan.vercel.app/truths/): 판단 전 깨야 할 여섯 통념(고정 시리즈)
-- [병원 신규환자 검색경로 메모 2026](https://the-basic-plan.vercel.app/guide/): 네이버·AI 검색 화면 관찰 가이드(웹·PDF)
-- [소개](https://the-basic-plan.vercel.app/about/): 대표 역할·대행하지 않는 조건·데이터 소유 공개
-- [인사이트](https://the-basic-plan.vercel.app/posts/): 병원 마케팅 판단 칼럼
+- [홈](https://thebasicplan.co.kr/): 점검부터 시작하는 병원 마케팅
+- [유입·전환 점검](https://thebasicplan.co.kr/checkup/): 무료 진단 리포트(질문 5개)로 시작하는 MVO. 어디서 새는지 확인
+- [병원 마케팅의 6가지 진실](https://thebasicplan.co.kr/truths/): 판단 전 깨야 할 여섯 통념(고정 시리즈)
+- [병원 신규환자 검색경로 메모 2026](https://thebasicplan.co.kr/guide/): 네이버·AI 검색 화면 관찰 가이드(웹·PDF)
+- [소개](https://thebasicplan.co.kr/about/): 대표 역할·대행하지 않는 조건·데이터 소유 공개
+- [인사이트](https://thebasicplan.co.kr/posts/): 병원 마케팅 판단 칼럼
 
 ## 대표 인사이트
-- [순위는 그대로인데 문의가 줄었다면](https://the-basic-plan.vercel.app/posts/rankings-same-but-inquiries-dropped/): 유입이 아니라 그 뒤 단계부터 확인
-- [어떤 숫자를 성과로 봐야 할까](https://the-basic-plan.vercel.app/posts/which-numbers-are-real-results/): 과정 지표와 성과 지표의 구분
-- [대행사 계약 전 확인할 체크리스트](https://the-basic-plan.vercel.app/posts/agency-contract-checklist/): 어느 업체에도 적용 가능한 판단 기준
-- [지금 AEO·GEO에 돈을 써도 되는 경우와 기다려도 되는 경우](https://the-basic-plan.vercel.app/posts/when-to-invest-in-aeo-geo/): 확인 가능/불가 구분
-- [LLM 노출만이 답은 아니다](https://the-basic-plan.vercel.app/posts/ai-era-llm-and-conversion/): 병원은 지역 비즈니스, 핵심은 전환
+- [순위는 그대로인데 문의가 줄었다면](https://thebasicplan.co.kr/posts/rankings-same-but-inquiries-dropped/): 유입이 아니라 그 뒤 단계부터 확인
+- [어떤 숫자를 성과로 봐야 할까](https://thebasicplan.co.kr/posts/which-numbers-are-real-results/): 과정 지표와 성과 지표의 구분
+- [대행사 계약 전 확인할 체크리스트](https://thebasicplan.co.kr/posts/agency-contract-checklist/): 어느 업체에도 적용 가능한 판단 기준
+- [지금 AEO·GEO에 돈을 써도 되는 경우와 기다려도 되는 경우](https://thebasicplan.co.kr/posts/when-to-invest-in-aeo-geo/): 확인 가능/불가 구분
+- [LLM 노출만이 답은 아니다](https://thebasicplan.co.kr/posts/ai-era-llm-and-conversion/): 병원은 지역 비즈니스, 핵심은 전환
 
 ## 운영 원칙
 - 검색 순위·AI 인용·문의 증가와 그 시점을 보장하지 않습니다. 관찰된 것과 판단 근거만 공유합니다.
