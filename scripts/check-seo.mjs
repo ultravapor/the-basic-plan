@@ -14,6 +14,13 @@ function walk(dir) {
 const pages = new Map();
 const titles = new Set();
 const descriptions = new Set();
+// 예약 발행(미래 pubDate) 글은 아직 빌드되지 않지만, 그 글로의 내부링크는 '깨진' 게 아니라 '예약된' 링크다.
+// src/content/posts의 .md 파일명(=slug)으로 유효한 /posts/<slug>/ 경로 집합을 만들어, 그날 되면 뜰 링크는 통과시킨다.
+const scheduledPosts = new Set(
+  readdirSync(fileURLToPath(new URL('../src/content/posts/', import.meta.url)))
+    .filter(f => f.endsWith('.md'))
+    .map(f => `/posts/${f.replace(/\.md$/, '')}/`)
+);
 for (const file of walk(root).filter(f => f.endsWith('.html'))) {
   const path = '/' + relative(root, file).split(sep).join('/').replace(/index\.html$/, '');
   const $ = load(readFileSync(file, 'utf8'));
@@ -55,7 +62,7 @@ for (const [path, $] of pages) {
     const url = new URL($(e).attr('href'), site + path);
     if (url.origin !== site) continue;
     const target = pages.get(url.pathname);
-    assert(target || existsSync(join(root, url.pathname)), `${path}: broken internal link ${url.href}`);
+    assert(target || existsSync(join(root, url.pathname)) || scheduledPosts.has(url.pathname), `${path}: broken internal link ${url.href}`);
     if (target && url.hash) assert(target('[id]').toArray().some(e => target(e).attr('id') === decodeURIComponent(url.hash.slice(1))), `${path}: missing anchor ${url.href}`);
   }
 }
