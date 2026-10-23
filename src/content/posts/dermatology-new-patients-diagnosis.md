@@ -64,6 +64,5 @@ faq:
 
 우리 병원이 지금 발견에서 막히는지 비교에서 막히는지 함께 짚고 싶으시면 [유입·전환 점검](/checkup/)에서 확인하실 수 있습니다.
 
-보장이 아니라 진단입니다.
 
 > 관련 글: [피부과, 어떻게 차별화해야 환자가 선택할까](/posts/dermatology-clinic-differentiation-marketing/) · [노출은 후보에 드는 일, 선택은 이유가 만든다](/posts/marketing-truth-4-selection/)

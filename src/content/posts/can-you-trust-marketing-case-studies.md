@@ -66,6 +66,5 @@ faq:
 
 남의 사례보다 우리 병원 숫자가 더 정확합니다.
 우리 병원은 지금 어떤 상태인지 근거와 함께 확인하고 싶으시면, [우리 병원 유입·전환 점검](/checkup/)에서 짚어드립니다.
-보장이 아니라 진단입니다.
 
 > 이어지는 글: [병원 마케팅, 지금 돈을 더 쓸 필요 없는 경우](/posts/when-not-to-spend-more-on-marketing/) · [대행사 리포트에 ‘전환’이 왜 없을까?](/posts/why-reports-hide-conversion/)

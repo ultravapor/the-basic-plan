@@ -64,6 +64,5 @@ faq:
 ## 다음
 
 우리 병원은 지금 어느 구간에서 숫자가 끊기는지 함께 짚고 싶으시면 [유입·전환 점검](/checkup/)에서 확인하실 수 있습니다.
-보장이 아니라 진단입니다.
 
 > 관련 글: [대행사 리포트에 ‘전환’이 왜 없을까?](/posts/why-reports-hide-conversion/) · [전환이 어디서 새는지 스스로 진단하는 법](/posts/conversion-self-diagnosis/)
